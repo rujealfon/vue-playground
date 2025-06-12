@@ -8,7 +8,7 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
-    "prepare": "cypress install",
+    "prepare": "husky",
     "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "build-only": "vite build",
@@ -38,8 +38,10 @@
     "eslint-plugin-cypress": "^4.3.0",
     "eslint-plugin-oxlint": "^0.16.12",
     "eslint-plugin-vue": "~10.0.1",
+    "husky": "^9.1.7",
     "jiti": "^2.4.2",
     "jsdom": "^26.1.0",
+    "lint-staged": "^16.1.0",
     "npm-run-all2": "^7.0.2",
     "oxlint": "^0.16.12",
     "prettier": "3.5.3",
@@ -49,5 +51,11 @@
     "vite-plugin-vue-devtools": "^7.7.6",
     "vitest": "^3.2.3",
     "vue-tsc": "^2.2.10"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": [
+      "bun run lint",
+      "bun run format"
+    ]
   }
 }
