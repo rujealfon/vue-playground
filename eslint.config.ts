@@ -97,7 +97,7 @@ export default defineConfigWithVueTs(
   // UI Components exceptions - allow single-word names for shadcn/ui components
   {
     name: 'ui-components-exceptions',
-    files: ['src/components/ui/**/*.vue'],
+    files: ['src/pages/**/*.vue', 'src/components/ui/**/*.vue'],
     rules: {
       // Allow single-word component names for UI components (shadcn/ui pattern)
       'vue/multi-word-component-names': 'off',
