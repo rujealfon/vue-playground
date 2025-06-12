@@ -1,0 +1,13 @@
+# Generated files
+typed-router.d.ts
+
+# Build outputs
+dist/
+dist-ssr/
+coverage/
+
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
