@@ -1,8 +1,8 @@
 {
   "name": "vue-playground",
+  "type": "module",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "bunx --bun vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -13,15 +13,11 @@
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "build-only": "bunx --bun vite build",
     "type-check": "vue-tsc --build",
-    "lint:oxlint": "oxlint . -D correctness --ignore-path .gitignore",
-    "lint:eslint": "eslint .",
-    "lint:oxlint:fix": "oxlint . --fix -D correctness --ignore-path .gitignore",
-    "lint:eslint:fix": "eslint . --fix",
-    "lint": "run-s lint:*",
-    "format": "prettier --check src/",
-    "format:fix": "prettier --write src/"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "dependencies": {
+    "@antfu/eslint-config": "^4.14.1",
     "@tailwindcss/vite": "^4.1.10",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -42,26 +38,24 @@
     "@types/node": "^24.0.1",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/eslint-plugin": "^1.2.5",
-    "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.0",
     "@vue/language-plugin-pug": "^2.2.10",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
     "cypress": "^14.4.1",
     "eslint": "^9.28.0",
+    "eslint-plugin-better-tailwindcss": "^3.2.0",
     "eslint-plugin-cypress": "^5.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-oxlint": "^1.1.0",
     "eslint-plugin-vue": "~10.2.0",
+    "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "husky": "^9.1.7",
     "jiti": "^2.4.2",
     "jsdom": "^26.1.0",
     "lint-staged": "^16.1.1",
     "npm-run-all2": "^8.0.4",
     "oxlint": "^1.1.0",
-    "prettier": "3.5.3",
-    "prettier-plugin-organize-imports": "^4.1.0",
-    "prettier-plugin-tailwindcss": "^0.6.12",
     "start-server-and-test": "^2.0.12",
     "typescript": "~5.8.3",
     "unplugin-vue-router": "^0.12.0",
@@ -71,10 +65,6 @@
     "vue-tsc": "^2.2.10"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": [
-      "bun run lint:oxlint",
-      "bun run lint:eslint",
-      "bun run format"
-    ]
+    "*.{js,ts,vue}": "eslint --fix"
   }
 }
