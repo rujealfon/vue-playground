@@ -34,12 +34,14 @@
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
+    "@types/bun": "^1.2.16",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^24.0.1",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/eslint-plugin": "^1.2.5",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.0",
+    "@vue/language-plugin-pug": "^2.2.10",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
     "cypress": "^14.4.1",
@@ -55,14 +57,15 @@
     "npm-run-all2": "^8.0.4",
     "oxlint": "^1.1.0",
     "prettier": "3.5.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "prettier-plugin-tailwindcss": "^0.6.12",
     "start-server-and-test": "^2.0.12",
     "typescript": "~5.8.3",
     "unplugin-vue-router": "^0.12.0",
     "vite": "npm:rolldown-vite@latest",
     "vite-plugin-vue-devtools": "^7.7.6",
     "vitest": "^3.2.3",
-    "vue-tsc": "^2.2.10",
-    "@types/bun": "latest"
+    "vue-tsc": "^2.2.10"
   },
   "lint-staged": {
     "*.{js,ts,vue}": [
