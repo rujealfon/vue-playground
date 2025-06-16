@@ -22,16 +22,16 @@
         "@tsconfig/node22": "^22.0.2",
         "@types/bun": "^1.2.16",
         "@types/jsdom": "^21.1.7",
-        "@types/node": "^24.0.1",
+        "@types/node": "^24.0.3",
         "@vitejs/plugin-vue": "^5.2.4",
-        "@vitest/eslint-plugin": "^1.2.5",
+        "@vitest/eslint-plugin": "^1.2.7",
         "@vue/eslint-config-typescript": "^14.5.0",
         "@vue/language-plugin-pug": "^2.2.10",
         "@vue/test-utils": "^2.4.6",
         "@vue/tsconfig": "^0.7.0",
         "cypress": "^14.4.1",
-        "eslint": "^9.28.0",
-        "eslint-plugin-better-tailwindcss": "^3.2.0",
+        "eslint": "^9.29.0",
+        "eslint-plugin-better-tailwindcss": "^3.2.1",
         "eslint-plugin-cypress": "^5.1.0",
         "eslint-plugin-import": "^2.31.0",
         "eslint-plugin-oxlint": "^1.1.0",
@@ -40,14 +40,14 @@
         "husky": "^9.1.7",
         "jiti": "^2.4.2",
         "jsdom": "^26.1.0",
-        "lint-staged": "^16.1.1",
+        "lint-staged": "^16.1.2",
         "npm-run-all2": "^8.0.4",
         "oxlint": "^1.1.0",
         "start-server-and-test": "^2.0.12",
         "typescript": "~5.8.3",
         "unplugin-vue-router": "^0.12.0",
         "vite": "npm:rolldown-vite@latest",
-        "vite-plugin-vue-devtools": "^7.7.6",
+        "vite-plugin-vue-devtools": "^7.7.7",
         "vitest": "^3.2.3",
         "vue-tsc": "^2.2.10",
       },
@@ -524,7 +524,7 @@
 
     "@vitejs/plugin-vue": ["@vitejs/plugin-vue@5.2.4", "", { "peerDependencies": { "vite": "^5.0.0 || ^6.0.0", "vue": "^3.2.25" } }, "sha512-7Yx/SXSOcQq5HiiV3orevHUFn+pmMB4cgbEkDYgnkUWb0WfeQ/wa2yFv6D5ICiCQOVpjA7vYDXrC7AGO8yjDHA=="],
 
-    "@vitest/eslint-plugin": ["@vitest/eslint-plugin@1.2.5", "", { "dependencies": { "@typescript-eslint/utils": "^8.24.0" }, "peerDependencies": { "eslint": ">= 8.57.0", "typescript": ">= 5.0.0", "vitest": "*" }, "optionalPeers": ["typescript", "vitest"] }, "sha512-cfmXz++mkqYpssrKymd7KJumxaZBsfFji2y22QV04kDYKRbiaZ+s4WZL/bzAkcefVKj4KkFctVALHdDZhFhHGg=="],
+    "@vitest/eslint-plugin": ["@vitest/eslint-plugin@1.2.7", "", { "dependencies": { "@typescript-eslint/utils": "^8.24.1" }, "peerDependencies": { "eslint": ">= 8.57.0", "typescript": ">= 5.0.0", "vitest": "*" }, "optionalPeers": ["typescript", "vitest"] }, "sha512-7WHcGZo6uXsE4SsSnpGDqKyGrd6NfOMM52WKoHSpTRZLbjMuDyHfA5P7m8yrr73tpqYjsiAdSjSerOnx8uEhpA=="],
 
     "@vitest/expect": ["@vitest/expect@3.2.3", "", { "dependencies": { "@types/chai": "^5.2.2", "@vitest/spy": "3.2.3", "@vitest/utils": "3.2.3", "chai": "^5.2.0", "tinyrainbow": "^2.0.0" } }, "sha512-W2RH2TPWVHA1o7UmaFKISPvdicFJH+mjykctJFoAkUw+SPTJTGjUNdKscFBrqM7IPnCVu6zihtKYa7TkZS1dkQ=="],
 
@@ -914,7 +914,7 @@
 
     "eslint-plugin-antfu": ["eslint-plugin-antfu@3.1.1", "", { "peerDependencies": { "eslint": "*" } }, "sha512-7Q+NhwLfHJFvopI2HBZbSxWXngTwBLKxW1AGXLr2lEGxcEIK/AsDs8pn8fvIizl5aZjBbVbVK5ujmMpBe4Tvdg=="],
 
-    "eslint-plugin-better-tailwindcss": ["eslint-plugin-better-tailwindcss@3.2.0", "", { "dependencies": { "@eslint/css-tree": "^3.6.1", "enhanced-resolve": "^5.18.1", "jiti": "^2.4.2", "postcss": "^8.5.5", "postcss-import": "^16.1.0", "synckit": "^0.11.8", "tailwind-csstree": "^0.1.0" }, "peerDependencies": { "eslint": "^7.0.0 || ^8.0.0 || ^9.0.0", "tailwindcss": "^3.3.0 || ^4.0.0" } }, "sha512-zRt1osmncUQmAXaoDNetukeed8MgXyGc70j5OB6my4gA5tZudKD1uzU13GEQvg0uHLwbdn7R3nxC8uwYGltQ3A=="],
+    "eslint-plugin-better-tailwindcss": ["eslint-plugin-better-tailwindcss@3.2.1", "", { "dependencies": { "@eslint/css-tree": "^3.6.1", "enhanced-resolve": "^5.18.1", "jiti": "^2.4.2", "postcss": "^8.5.5", "postcss-import": "^16.1.0", "synckit": "^0.11.8", "tailwind-csstree": "^0.1.0" }, "peerDependencies": { "eslint": "^7.0.0 || ^8.0.0 || ^9.0.0", "tailwindcss": "^3.3.0 || ^4.0.0" } }, "sha512-27nz5M810LJbMOX7LwV4jEe1JtRqSOvVw1K1SshodeA26DLUewXSEI0PSZI0cOWl9Pp3WI39qdmI0dMDpFe2Rg=="],
 
     "eslint-plugin-command": ["eslint-plugin-command@3.2.1", "", { "dependencies": { "@es-joy/jsdoccomment": "^0.50.2" }, "peerDependencies": { "eslint": "*" } }, "sha512-PcpzWe8dvAPaBobxE9zgz1w94fO4JYvzciDzw6thlUb9Uqf5e2/gJz97itOGxvdq+mFeudi71m1OGFgvWmb93w=="],
 
@@ -1965,6 +1965,8 @@
     "yoctocolors": ["yoctocolors@2.1.1", "", {}, "sha512-GQHQqAopRhwU8Kt1DDM8NjibDXHC8eoh1erhGAJPEyveY9qqVeXvVikNKrDz69sHowPMorbPUrH/mx8c50eiBQ=="],
 
     "zwitch": ["zwitch@2.0.4", "", {}, "sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A=="],
+
+    "@antfu/eslint-config/@vitest/eslint-plugin": ["@vitest/eslint-plugin@1.2.5", "", { "dependencies": { "@typescript-eslint/utils": "^8.24.0" }, "peerDependencies": { "eslint": ">= 8.57.0", "typescript": ">= 5.0.0", "vitest": "*" }, "optionalPeers": ["typescript", "vitest"] }, "sha512-cfmXz++mkqYpssrKymd7KJumxaZBsfFji2y22QV04kDYKRbiaZ+s4WZL/bzAkcefVKj4KkFctVALHdDZhFhHGg=="],
 
     "@antfu/install-pkg/tinyexec": ["tinyexec@1.0.1", "", {}, "sha512-5uC6DDlmeqiOwCPmK9jMSdOuZTh8bU39Ys6yidB+UTt5hfZUPGAypSgFRiEp+jbi9qH40BLDvy85jIU88wKSqw=="],
 
