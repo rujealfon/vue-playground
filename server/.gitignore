@@ -1,0 +1,24 @@
+# Server-specific files to ignore
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Environment-specific overrides
+.env.local
+.env.production
+
+# Database backups
+*.backup
+db.backup.json
+
+# Generated files
+generated/
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,441 @@
+# Vue Playground API Tests
+# REST Client file for testing the mock API server
+# Make sure to start the server with: bun run mock-api
+
+### Variables
+@baseUrl = http://localhost:3001
+@contentType = application/json
+
+### Authentication - Login
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+### Extract token from login response
+@token = {{login.response.body.tokens.accessToken}}
+@refreshToken = {{login.response.body.tokens.refreshToken}}
+
+### Authentication - Refresh Token
+POST {{baseUrl}}/auth/refresh
+Content-Type: {{contentType}}
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+### Authentication - Register New User
+POST {{baseUrl}}/auth/register
+Content-Type: {{contentType}}
+
+{
+  "email": "newuser@example.com",
+  "password": "newpassword123",
+  "username": "newuser",
+  "display_name": "New User",
+  "first_name": "New",
+  "last_name": "User"
+}
+
+### Authentication - Get Current User Profile
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{token}}
+
+### Authentication - Update User Profile
+PATCH {{baseUrl}}/auth/profile
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "name": "John Doe Updated",
+  "bio": "Updated bio via REST Client",
+  "website": "https://johndoe.dev",
+  "location": "San Francisco, CA",
+  "twitter": "@johndoe",
+  "github": "johndoe",
+  "linkedin": "johndoe"
+}
+
+### Authentication - Logout
+POST {{baseUrl}}/auth/logout
+Authorization: Bearer {{token}}
+
+### Test - Verify Token is Invalidated After Logout
+# This should return 401 Unauthorized after logout
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{token}}
+
+###############################################################################
+# COMPLETE LOGOUT TEST SEQUENCE
+# Run these tests in order to verify logout functionality
+###############################################################################
+
+### Step 1: Fresh Login for Logout Test
+# @name logoutTest
+POST {{baseUrl}}/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+### Step 2: Extract Fresh Token
+@testToken = {{logoutTest.response.body.tokens.accessToken}}
+
+### Step 3: Test Profile with Fresh Token (should work)
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{testToken}}
+
+### Step 4: Logout with Fresh Token
+POST {{baseUrl}}/auth/logout
+Authorization: Bearer {{testToken}}
+
+### Step 5: Test Profile Again (should fail with 401)
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{testToken}}
+
+###############################################################################
+# POSTS ENDPOINTS
+###############################################################################
+
+### Get All Posts
+GET {{baseUrl}}/posts
+Authorization: Bearer {{token}}
+
+### Get All Posts with Pagination
+GET {{baseUrl}}/posts?_page=1&_limit=5
+Authorization: Bearer {{token}}
+
+### Get Single Post
+GET {{baseUrl}}/posts/1
+Authorization: Bearer {{token}}
+
+### Create New Post
+# @name createPost
+POST {{baseUrl}}/posts
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "title": "Test Post from REST Client",
+  "content": "This is a test post created using REST Client extension",
+  "excerpt": "Test post excerpt",
+  "status": "published",
+  "author": 1,
+  "categories": [1, 2],
+  "tags": [1, 2, 3],
+  "featured_image": 1,
+  "meta": {
+    "seo_title": "Test Post SEO Title",
+    "seo_description": "Test post for SEO"
+  }
+}
+
+### Update Post
+@postId = {{createPost.response.body.id}}
+PUT {{baseUrl}}/posts/{{postId}}
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "title": "Updated Test Post",
+  "content": "This post has been updated via REST Client",
+  "status": "published"
+}
+
+### Delete Post
+DELETE {{baseUrl}}/posts/{{postId}}
+Authorization: Bearer {{token}}
+
+###############################################################################
+# USERS ENDPOINTS
+###############################################################################
+
+### Get All Users
+GET {{baseUrl}}/users
+Authorization: Bearer {{token}}
+
+### Get Single User
+GET {{baseUrl}}/users/1
+Authorization: Bearer {{token}}
+
+### Create New User
+# @name createUser
+POST {{baseUrl}}/users
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "display_name": "Test User",
+  "first_name": "Test",
+  "last_name": "User",
+  "role": "subscriber",
+  "avatar": "https://via.placeholder.com/150",
+  "bio": "Test user created via REST Client"
+}
+
+### Update User
+@userId = {{createUser.response.body.id}}
+PUT {{baseUrl}}/users/{{userId}}
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "display_name": "Updated Test User",
+  "bio": "Updated bio via REST Client"
+}
+
+### Delete User
+DELETE {{baseUrl}}/users/{{userId}}
+Authorization: Bearer {{token}}
+
+###############################################################################
+# COMMENTS ENDPOINTS
+###############################################################################
+
+### Get All Comments
+GET {{baseUrl}}/comments
+Authorization: Bearer {{token}}
+
+### Get Comments for Specific Post
+GET {{baseUrl}}/comments?post=1
+Authorization: Bearer {{token}}
+
+### Create New Comment
+# @name createComment
+POST {{baseUrl}}/comments
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "post": 1,
+  "author": 1,
+  "author_name": "Test Commenter",
+  "author_email": "commenter@example.com",
+  "content": "This is a test comment created via REST Client",
+  "status": "approved",
+  "parent": 0
+}
+
+### Update Comment
+@commentId = {{createComment.response.body.id}}
+PUT {{baseUrl}}/comments/{{commentId}}
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "content": "Updated comment content via REST Client",
+  "status": "approved"
+}
+
+### Delete Comment
+DELETE {{baseUrl}}/comments/{{commentId}}
+Authorization: Bearer {{token}}
+
+###############################################################################
+# CATEGORIES ENDPOINTS
+###############################################################################
+
+### Get All Categories
+GET {{baseUrl}}/categories
+Authorization: Bearer {{token}}
+
+### Get Single Category
+GET {{baseUrl}}/categories/1
+Authorization: Bearer {{token}}
+
+### Create New Category
+# @name createCategory
+POST {{baseUrl}}/categories
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "name": "Test Category",
+  "slug": "test-category",
+  "description": "A test category created via REST Client",
+  "parent": 0,
+  "count": 0
+}
+
+### Update Category
+@categoryId = {{createCategory.response.body.id}}
+PUT {{baseUrl}}/categories/{{categoryId}}
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "name": "Updated Test Category",
+  "description": "Updated category description"
+}
+
+### Delete Category
+DELETE {{baseUrl}}/categories/{{categoryId}}
+Authorization: Bearer {{token}}
+
+###############################################################################
+# TAGS ENDPOINTS
+###############################################################################
+
+### Get All Tags
+GET {{baseUrl}}/tags
+Authorization: Bearer {{token}}
+
+### Get Single Tag
+GET {{baseUrl}}/tags/1
+Authorization: Bearer {{token}}
+
+### Create New Tag
+# @name createTag
+POST {{baseUrl}}/tags
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "name": "test-tag",
+  "slug": "test-tag",
+  "description": "A test tag created via REST Client",
+  "count": 0
+}
+
+### Update Tag
+@tagId = {{createTag.response.body.id}}
+PUT {{baseUrl}}/tags/{{tagId}}
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "name": "updated-test-tag",
+  "description": "Updated tag description"
+}
+
+### Delete Tag
+DELETE {{baseUrl}}/tags/{{tagId}}
+Authorization: Bearer {{token}}
+
+###############################################################################
+# MEDIA ENDPOINTS
+###############################################################################
+
+### Get All Media
+GET {{baseUrl}}/media
+Authorization: Bearer {{token}}
+
+### Get Single Media Item
+GET {{baseUrl}}/media/1
+Authorization: Bearer {{token}}
+
+### Create New Media Item
+# @name createMedia
+POST {{baseUrl}}/media
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "title": "Test Image",
+  "alt_text": "Test image alt text",
+  "caption": "Test image caption",
+  "description": "Test image description",
+  "mime_type": "image/jpeg",
+  "file_size": 2048576,
+  "width": 1920,
+  "height": 1080,
+  "url": "https://via.placeholder.com/1920x1080",
+  "author": 1
+}
+
+### Update Media Item
+@mediaId = {{createMedia.response.body.id}}
+PUT {{baseUrl}}/media/{{mediaId}}
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "title": "Updated Test Image",
+  "alt_text": "Updated alt text",
+  "caption": "Updated caption"
+}
+
+### Delete Media Item
+DELETE {{baseUrl}}/media/{{mediaId}}
+Authorization: Bearer {{token}}
+
+###############################################################################
+# WORDPRESS COMPATIBILITY ENDPOINTS
+###############################################################################
+
+### WordPress - Get Posts
+GET {{baseUrl}}/wp/v2/posts
+Authorization: Bearer {{token}}
+
+### WordPress - Get Users
+GET {{baseUrl}}/wp/v2/users
+Authorization: Bearer {{token}}
+
+### WordPress - Get Categories
+GET {{baseUrl}}/wp/v2/categories
+Authorization: Bearer {{token}}
+
+### WordPress - Get Tags
+GET {{baseUrl}}/wp/v2/tags
+Authorization: Bearer {{token}}
+
+### WordPress - Get Comments
+GET {{baseUrl}}/wp/v2/comments
+Authorization: Bearer {{token}}
+
+### WordPress - Get Media
+GET {{baseUrl}}/wp/v2/media
+Authorization: Bearer {{token}}
+
+###############################################################################
+# ERROR TESTING
+###############################################################################
+
+### Test 401 Unauthorized (no token)
+GET {{baseUrl}}/posts
+
+### Test 404 Not Found
+GET {{baseUrl}}/posts/999999
+Authorization: Bearer {{token}}
+
+### Test Invalid JSON
+POST {{baseUrl}}/posts
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "title": "Invalid JSON"
+  "missing_comma": true
+}
+
+###############################################################################
+# SEARCH AND FILTERING
+###############################################################################
+
+### Search Posts by Title
+GET {{baseUrl}}/posts?title_like=Hello
+Authorization: Bearer {{token}}
+
+### Filter Posts by Status
+GET {{baseUrl}}/posts?status=published
+Authorization: Bearer {{token}}
+
+### Filter Posts by Author
+GET {{baseUrl}}/posts?author=1
+Authorization: Bearer {{token}}
+
+### Sort Posts by Date (newest first)
+GET {{baseUrl}}/posts?_sort=date&_order=desc
+Authorization: Bearer {{token}}
+
+### Get Posts with Relationships (full objects)
+GET {{baseUrl}}/posts?_embed=true
+Authorization: Bearer {{token}}

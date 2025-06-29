@@ -17,6 +17,8 @@ export default antfu(
     ignores: [
       // Ignore UI components from all linting and formatting
       'src/shared/components/ui/**/*',
+      // Ignore generated router types to prevent Unicode character conflicts
+      'typed-router.d.ts',
     ],
   },
   {
@@ -33,7 +35,7 @@ export default antfu(
       }],
       'unicorn/filename-case': ['error', {
         case: 'kebabCase',
-        ignore: ['README.md'],
+        ignore: [/\.md$/],
       }],
     },
   },

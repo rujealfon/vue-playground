@@ -1,6 +1,6 @@
 # Vue Playground - Feature-Based Architecture
 
-A modern Vue.js application built with a feature-based architecture designed for medium to large-scale applications.
+A modern Vue.js application built with a feature-based architecture and comprehensive WordPress-like mock API designed for medium to large-scale applications.
 
 ## 🏗️ Architecture Overview
 
@@ -118,7 +118,7 @@ src/
 - **Bun**: Fast package manager and bundler
 - **Vue Router**: File-based routing with unplugin-vue-router
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
 
@@ -126,22 +126,186 @@ src/
 - Vue 3 knowledge
 - TypeScript familiarity
 
-### Installation
+### Installation & Setup
 
 ```bash
 # Install dependencies
 bun install
 
-# Start development server
-bun dev
+# Copy environment file
+cp .env.example .env
 
+# Start both Vue app and API server
+bun run dev:full
+
+# Or start them separately:
+# Start development server only
+bun run dev
+
+# Start API server only
+bun run mock-api
+```
+
+The Vue app will be available at: `http://localhost:5173`
+The API server will be available at: `http://localhost:3001`
+
+### Build & Test
+
+```bash
 # Build for production
 bun build
 
 # Run tests
 bun test:unit
 bun test:e2e
+
+# Lint code
+bun run lint
 ```
+
+## 📡 WordPress-like Mock API
+
+The project includes a comprehensive WordPress-like blog API built with JSON Server, featuring JWT authentication, full CRUD operations, and WordPress REST API compatibility.
+
+### ✅ API Status
+- **Server**: Running on `http://localhost:3001`
+- **Authentication**: JWT-based with demo users
+- **WordPress Compatibility**: Full REST API support
+- **CORS Enabled**: Ready for cross-origin requests
+
+### 🔐 Authentication
+
+#### Demo User Credentials
+
+| Email | Role | Password | Description |
+|-------|------|----------|-------------|
+| `john@example.com` | Admin | Any password | Full access to all features |
+| `jane@example.com` | Editor | Any password | Can create/edit posts |
+
+#### JWT Configuration
+- **Access Token**: 15-minute expiry
+- **Refresh Token**: 7-day expiry
+- **Automatic refresh**: Supported via `/api/auth/refresh`
+
+#### Authentication Examples
+
+**Login:**
+```bash
+curl -X POST http://localhost:3001/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john@example.com",
+    "password": "any-password"
+  }'
+```
+
+**Get Profile (with token):**
+```bash
+curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  http://localhost:3001/api/auth/profile
+```
+
+### 📡 API Endpoints
+
+#### Authentication
+- `POST /api/auth/login` - User login
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/logout` - User logout
+- `GET /api/auth/profile` - Get user profile
+- `PATCH /api/auth/profile` - Update user profile
+- `POST /api/auth/refresh` - Refresh access token
+- `POST /api/auth/forgot-password` - Forgot password
+- `POST /api/auth/reset-password` - Reset password
+
+#### Blog Content
+- `GET /api/posts` - Get all posts
+- `GET /api/posts/:id` - Get single post
+- `POST /api/posts` - Create post (requires auth)
+- `PUT /api/posts/:id` - Update post (requires auth)
+- `DELETE /api/posts/:id` - Delete post (requires auth)
+- `GET /api/posts/:id/comments` - Get post comments
+- `GET /api/posts/search?q=term` - Search posts
+
+#### Categories & Tags
+- `GET /api/categories` - Get all categories
+- `GET /api/categories/:id` - Get single category
+- `GET /api/categories/:id/posts` - Get category posts
+- `GET /api/tags` - Get all tags
+- `GET /api/tags/:id` - Get single tag
+- `GET /api/tags/:id/posts` - Get tag posts
+
+#### Comments
+- `GET /api/comments` - Get all comments
+- `POST /api/comments` - Create comment
+- `PUT /api/comments/:id` - Update comment (requires auth)
+- `DELETE /api/comments/:id` - Delete comment (requires auth)
+
+#### Users & Media
+- `GET /api/users` - Get all users
+- `GET /api/users/:id` - Get single user
+- `GET /api/users/:id/posts` - Get user posts
+- `GET /api/media` - Get media files
+- `POST /api/media` - Upload media (requires auth)
+
+#### WordPress Compatibility
+- `GET /wp-json/wp/v2/posts` - WordPress-style posts endpoint
+- `GET /wp-json/wp/v2/categories` - WordPress-style categories
+- `GET /wp-json/wp/v2/comments` - WordPress-style comments
+
+### 📝 API Usage Examples
+
+#### Get All Posts
+```bash
+curl http://localhost:3001/api/posts
+```
+
+#### Create New Post (requires auth)
+```bash
+curl -X POST http://localhost:3001/api/posts \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -d '{
+    "title": "My New Post",
+    "content": "<p>This is my new post content</p>",
+    "excerpt": "A brief excerpt",
+    "status": "published",
+    "authorId": 1
+  }'
+```
+
+#### Search & Filtering
+```bash
+# Search posts
+curl "http://localhost:3001/api/posts?q=Vue"
+
+# Filter by status
+curl "http://localhost:3001/api/posts?status=published"
+
+# Pagination
+curl "http://localhost:3001/api/posts?_page=1&_limit=5"
+```
+
+### 📊 Sample Data Included
+
+- **3 Blog Posts** (Vue.js, Tailwind CSS, Authentication topics)
+- **4 Categories** (Frontend, CSS, Tutorials, Backend)
+- **9 Tags** (Vue.js, TypeScript, Tailwind, etc.)
+- **3 Comments** (with threading support)
+- **2 Users** (Admin, Editor roles)
+- **1 Media File** (featured image)
+
+### 🎨 API Features
+
+✅ **Full CRUD Operations** for all resources
+✅ **JWT Authentication** with refresh tokens
+✅ **Role-based Access Control** (admin, editor, author)
+✅ **WordPress REST API Compatibility**
+✅ **Search & Filtering**
+✅ **Pagination Support**
+✅ **Threaded Comments**
+✅ **Media Management**
+✅ **CORS Enabled**
+✅ **Realistic Blog Data**
 
 ## 🔧 Development Guidelines
 
@@ -202,131 +366,84 @@ bun test:e2e
        }
      }
 
-     return { data, isLoading, fetchData }
+     return {
+       data,
+       isLoading,
+       fetchData,
+     }
    })
    ```
 
-5. **Export from feature** (`src/features/my-feature/index.ts`):
+5. **Export feature** (`src/features/my-feature/index.ts`):
+
    ```typescript
-   export { myFeatureService } from './services/my-feature.service'
-   export { useMyFeatureStore } from './stores/my-feature.store'
-   export type * from './types'
+   export * from './stores/my-feature.store'
+   export * from './services/my-feature.service'
+   export * from './types'
    ```
 
-### Best Practices
+### Adding Components
 
-#### 1. Feature Isolation
+1. **Create component directory**:
+   ```bash
+   mkdir -p src/shared/components/my-component
+   ```
 
-- Each feature should be self-contained
-- Dependencies between features should be minimal
-- Shared code goes in the `shared/` directory
+2. **Component structure**:
+   ```
+   my-component/
+   ├── MyComponent.vue
+   └── index.ts
+   ```
 
-#### 2. Type Safety
+3. **Export component** (`index.ts`):
+   ```typescript
+   export { default as MyComponent } from './MyComponent.vue'
+   ```
 
-- Use TypeScript for all code
-- Define proper types for all data structures
-- Use Zod for runtime validation
+### Working with the API
 
-#### 3. State Management
+The project includes a pre-configured API client with authentication handling:
 
-- Keep feature stores focused on their domain
-- Use composables for reusable logic
-- Avoid global state when possible
+```typescript
+import { api } from '@/shared/services/api'
 
-#### 4. API Integration
+// GET request
+const posts = await api('/posts')
 
-- Use the shared API service for HTTP requests
-- Implement proper error handling
-- Validate responses with Zod schemas
-
-#### 5. Component Organization
-
-- Keep components small and focused
-- Use composition API for complex logic
-- Separate presentation from business logic
-
-#### 6. Layout Usage
-
-- Use DefaultLayout for public pages (home, about, login)
-- Use DashboardLayout for authenticated pages
-- Leverage shared navigation components for consistency
-- Ensure responsive design across all layouts
-
-#### 7. Route Protection
-
-- All `/dashboard/*` routes are automatically protected
-- Configure role-based permissions in `src/core/router/index.ts`:
-  ```typescript
-  const ROUTE_PERMISSIONS = {
-    '/dashboard/users': ['admin'],
-    '/dashboard/admin': ['admin', 'moderator'],
+// POST request with auth
+const newPost = await api('/posts', {
+  method: 'POST',
+  body: {
+    title: 'New Post',
+    content: 'Content here'
   }
-  ```
-- Use auth store's role checking methods: `hasRole()`, `hasAnyRole()`
-- Test route protection by accessing dashboard routes while logged out
-
-## 📁 Feature Examples
-
-### Auth Feature Structure
-
-```
-src/features/auth/
-├── components/
-│   ├── LoginForm.vue
-│   ├── RegisterForm.vue
-│   └── ProfileCard.vue
-├── composables/
-│   └── useAuth.ts
-├── services/
-│   └── auth.service.ts
-├── stores/
-│   └── auth.store.ts
-├── types/
-│   └── index.ts
-└── index.ts
+})
 ```
 
-### Dashboard Feature Structure
-
-```
-src/features/dashboard/
-├── components/
-│   ├── StatsCard.vue
-│   ├── ActivityFeed.vue
-│   └── Chart.vue
-├── stores/
-│   ├── dashboard.store.ts
-│   └── counter.ts
-├── types/
-│   └── index.ts
-└── index.ts
-```
-
-## 🎨 Layout System
-
-The application includes a comprehensive layout system with multiple layouts and navigation components.
+## 🧩 Component Architecture
 
 ### Layout Components
 
 #### Default Layout (`src/shared/components/layouts/default-layout.vue`)
 - Used for public pages (home, about, login)
-- Includes header with navigation and authentication status
-- Footer with site information and links
-- Responsive design with mobile menu
+- Includes header with navigation and footer
+- Responsive design with mobile navigation
+- Authentication-aware menu items
 
 #### Dashboard Layout (`src/shared/components/layouts/dashboard-layout.vue`)
 - Used for authenticated dashboard pages
-- Fixed sidebar navigation on desktop
-- Collapsible mobile navigation with overlay
-- User profile section with role display
+- Includes dashboard header and sidebar
+- User profile integration
+- Role-based navigation
 
 ### Navigation Components
 
-#### Default Header (`src/shared/components/navigation/default-header.vue`)
-- Responsive navigation bar
-- Authentication status display
-- Mobile hamburger menu
-- User profile dropdown (when authenticated)
+#### Dashboard Header (`src/shared/components/navigation/dashboard-header.vue`)
+- User profile dropdown with avatar
+- Notifications and settings access
+- Mobile menu toggle
+- Logout functionality
 
 #### Dashboard Sidebar (`src/shared/components/navigation/dashboard-sidebar.vue`)
 - Navigation menu for dashboard sections
@@ -376,124 +493,172 @@ The application includes a comprehensive set of pages organized by functionality
 - **Dashboard pages** (`/dashboard/*`): Require authentication
 - **Role-based access**: Some dashboard features require specific user roles
   - `/dashboard/users`: Admin access only
-- **Automatic redirects**:
-  - Unauthenticated users accessing dashboard routes are redirected to login
-  - After successful login, users are redirected to their intended destination
-  - Authenticated users accessing login page are redirected to dashboard
-  - Users without required permissions are redirected to main dashboard
 
-## 🔗 Shared Resources
+## 🔒 Security Features
 
-### API Service
+### Route Protection
+```typescript
+// Route guard implementation in src/core/router/index.ts
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore()
 
-Located in `src/shared/services/api.ts`, provides:
+  // Check if route requires authentication
+  const requiresAuth = to.path.startsWith('/dashboard')
 
-- HTTP client with interceptors
-- Automatic authentication
-- Error handling
-- Request/response logging
+  if (requiresAuth && !authStore.isAuthenticated) {
+    next({ path: '/login', query: { redirect: to.fullPath } })
+    return
+  }
 
-### Layout Components
+  // Role-based access control
+  const requiredRoles = ROUTE_PERMISSIONS[to.path]
+  if (requiredRoles && !requiredRoles.includes(authStore.userRole)) {
+    next('/dashboard') // Redirect to main dashboard
+    return
+  }
 
-Located in `src/shared/components/layouts/`:
+  next()
+})
+```
 
-- **DefaultLayout**: For public pages with header/footer
-- **DashboardLayout**: For authenticated pages with sidebar
-- Responsive design and mobile support
-- Authentication integration
+### API Security
+- JWT tokens with automatic refresh
+- Request/response interceptors
+- Error handling and token cleanup
+- Protected routes requiring authentication
 
-### Navigation Components
+## 🌐 Environment Configuration
 
-Located in `src/shared/components/navigation/`:
+### Environment Variables
 
-- **DefaultHeader**: Main navigation with auth status
-- **DefaultFooter**: Site footer with links and info
-- **DashboardSidebar**: Dashboard navigation menu
-- **DashboardHeader**: Dashboard-specific header
+Create a `.env` file in the project root:
 
-### UI Components
+```env
+# API Configuration
+VITE_API_BASE_URL=http://localhost:3001/api
 
-Located in `src/shared/components/ui/`:
+# JWT Secrets (change in production!)
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+JWT_REFRESH_SECRET=your-super-secret-refresh-key-change-this-in-production
+```
 
-- **Button**: Reusable button component with variants
-- **AccessDenied**: Component for displaying access denied messages
-- Additional UI components as needed
-- Consistent styling with Tailwind CSS
+**⚠️ Important for Production:**
+- Generate secure random strings for JWT secrets
+- Use: `openssl rand -base64 32` to generate secure keys
+- Never use the example keys in production!
 
-### Types
+### Build Configuration
 
-Common types in `src/shared/types/index.ts`:
+The project uses Vite with custom configurations:
 
-- Base entities
-- API responses
-- User types
-- UI component types
-
-### Constants
-
-Application constants in `src/shared/constants/index.ts`:
-
-- API endpoints
-- Storage keys
-- Error messages
-- Feature flags
+- **TypeScript**: Full type checking
+- **Path aliases**: `@/` pointing to `src/`
+- **Auto-imports**: Vue composables and utilities
+- **Hot reload**: Fast development experience
 
 ## 🧪 Testing
 
-### Unit Tests
+### Quick API Tests
 
 ```bash
-# Run unit tests
+# Test API status
+curl http://localhost:3001/api/posts
+
+# Test authentication
+curl -X POST http://localhost:3001/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "john@example.com", "password": "test"}'
+
+# Test WordPress compatibility
+curl http://localhost:3001/wp-json/wp/v2/posts
+
+# Test search
+curl "http://localhost:3001/api/posts?q=Vue"
+```
+
+### Running Tests
+
+```bash
+# Unit tests
 bun test:unit
 
-# Run tests in watch mode
-bun test:unit --watch
+# E2E tests
+bun test:e2e:dev  # Interactive mode
+bun test:e2e      # Headless mode
+
+# Lint and format
+bun run lint
+bun run lint:fix
 ```
 
-### E2E Tests
+## 🚀 Deployment
 
-```bash
-# Run e2e tests
-bun test:e2e
+### Production Checklist
 
-# Run e2e tests in development mode
-bun test:e2e:dev
-```
+1. **Environment Setup**:
+   - Replace JWT secrets with secure values
+   - Update API base URL for production
+   - Configure CORS for your domain
 
-## 📦 Dependencies
+2. **Security**:
+   - Implement real password hashing
+   - Add rate limiting
+   - Use HTTPS in production
+   - Add input validation and sanitization
 
-### Core
+3. **Database**:
+   - Replace JSON files with real database
+   - Implement proper data persistence
+   - Add database migrations
 
-- **Vue 3**: Progressive JavaScript framework
-- **TypeScript**: Type safety and better developer experience
-- **Pinia**: State management for Vue
-- **Vue Router**: Official router for Vue.js
+4. **Build & Deploy**:
+   ```bash
+   bun run build
+   # Deploy dist/ folder to your hosting service
+   ```
 
-### API & Validation
+### Recommended Stack for Production
 
-- **ofetch**: Modern fetch wrapper
-- **Zod**: TypeScript-first schema validation
+- **Frontend**: Vercel, Netlify, or similar
+- **Backend**: Node.js with Express or Fastify
+- **Database**: PostgreSQL or MongoDB
+- **Authentication**: Auth0, Supabase Auth, or custom JWT implementation
 
-### UI & Styling
+## 📚 Tech Stack
 
-- **Tailwind CSS**: Utility-first CSS framework
-- **Reka UI**: Headless UI components
-- **Lucide Vue**: Beautiful icons
+### Frontend
+- **Vue 3** - Progressive JavaScript framework
+- **TypeScript** - Type safety and better DX
+- **Vite** - Fast build tool and dev server
+- **Tailwind CSS** - Utility-first CSS framework
+- **Vue Router** - Official router with file-based routing
+- **Pinia** - State management for Vue
+- **ofetch** - Modern fetch wrapper
+- **Zod** - Schema validation
 
-### Development
+### Development Tools
+- **Bun** - Fast package manager and runtime
+- **ESLint** - Code linting and formatting
+- **Prettier** - Code formatting
+- **TypeScript** - Static type checking
+- **Cypress** - E2E testing
+- **Vitest** - Unit testing
 
-- **Vite**: Fast build tool
-- **ESLint**: Code linting
-- **Husky**: Git hooks
-- **Vitest**: Testing framework
+### Mock API
+- **JSON Server** - Mock REST API
+- **JWT** - Authentication tokens
+- **CORS** - Cross-origin requests
+- **Custom Middleware** - Authentication logic
 
 ## 🤝 Contributing
 
-1. Follow the feature-based architecture
-2. Write tests for new features
-3. Use TypeScript and proper typing
-4. Follow ESLint rules
-5. Write meaningful commit messages
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes following the coding guidelines
+4. Run tests: `bun test:unit`
+5. Commit your changes: `git commit -m 'Add amazing feature'`
+6. Push to the branch: `git push origin feature/amazing-feature`
+7. Open a Pull Request
 
 ## 📄 License
 
