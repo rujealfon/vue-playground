@@ -5,7 +5,9 @@ import { Button } from '@/components/ui/button'
 <template>
   <div class="about flex min-h-screen items-center justify-center">
     <h1>This is an about page</h1>
-    <Button variant="default" @click="() => console.log('clicked')"> Click me </Button>
+    <Button variant="default" @click="() => console.log('clicked')">
+      Click me
+    </Button>
   </div>
 </template>
 
