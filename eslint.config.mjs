@@ -16,7 +16,7 @@ export default antfu(
     unocss: false,
     ignores: [
       // Ignore UI components from all linting and formatting
-      'src/components/ui/**/*',
+      'src/shared/components/ui/**/*',
     ],
   },
   {
