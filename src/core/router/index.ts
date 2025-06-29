@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { handleHotUpdate, routes } from 'vue-router/auto-routes'
 
-import { useAuthStore } from '@/features/auth'
+import { useAuthStore } from '@/features/auth/stores/auth.store'
 
 // Define route permissions
 const ROUTE_PERMISSIONS = {

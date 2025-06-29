@@ -168,6 +168,7 @@ bun run lint
 The project includes a comprehensive WordPress-like blog API built with JSON Server, featuring JWT authentication, full CRUD operations, and WordPress REST API compatibility.
 
 ### ✅ API Status
+
 - **Server**: Running on `http://localhost:3001`
 - **Authentication**: JWT-based with demo users
 - **WordPress Compatibility**: Full REST API support
@@ -177,12 +178,13 @@ The project includes a comprehensive WordPress-like blog API built with JSON Ser
 
 #### Demo User Credentials
 
-| Email | Role | Password | Description |
-|-------|------|----------|-------------|
-| `john@example.com` | Admin | Any password | Full access to all features |
-| `jane@example.com` | Editor | Any password | Can create/edit posts |
+| Email              | Role   | Password     | Description                 |
+| ------------------ | ------ | ------------ | --------------------------- |
+| `john@example.com` | Admin  | Any password | Full access to all features |
+| `jane@example.com` | Editor | Any password | Can create/edit posts       |
 
 #### JWT Configuration
+
 - **Access Token**: 15-minute expiry
 - **Refresh Token**: 7-day expiry
 - **Automatic refresh**: Supported via `/api/auth/refresh`
@@ -190,6 +192,7 @@ The project includes a comprehensive WordPress-like blog API built with JSON Ser
 #### Authentication Examples
 
 **Login:**
+
 ```bash
 curl -X POST http://localhost:3001/api/auth/login \
   -H "Content-Type: application/json" \
@@ -200,6 +203,7 @@ curl -X POST http://localhost:3001/api/auth/login \
 ```
 
 **Get Profile (with token):**
+
 ```bash
 curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   http://localhost:3001/api/auth/profile
@@ -208,6 +212,7 @@ curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
 ### 📡 API Endpoints
 
 #### Authentication
+
 - `POST /api/auth/login` - User login
 - `POST /api/auth/register` - User registration
 - `POST /api/auth/logout` - User logout
@@ -218,6 +223,7 @@ curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
 - `POST /api/auth/reset-password` - Reset password
 
 #### Blog Content
+
 - `GET /api/posts` - Get all posts
 - `GET /api/posts/:id` - Get single post
 - `POST /api/posts` - Create post (requires auth)
@@ -227,6 +233,7 @@ curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
 - `GET /api/posts/search?q=term` - Search posts
 
 #### Categories & Tags
+
 - `GET /api/categories` - Get all categories
 - `GET /api/categories/:id` - Get single category
 - `GET /api/categories/:id/posts` - Get category posts
@@ -235,12 +242,14 @@ curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
 - `GET /api/tags/:id/posts` - Get tag posts
 
 #### Comments
+
 - `GET /api/comments` - Get all comments
 - `POST /api/comments` - Create comment
 - `PUT /api/comments/:id` - Update comment (requires auth)
 - `DELETE /api/comments/:id` - Delete comment (requires auth)
 
 #### Users & Media
+
 - `GET /api/users` - Get all users
 - `GET /api/users/:id` - Get single user
 - `GET /api/users/:id/posts` - Get user posts
@@ -248,6 +257,7 @@ curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
 - `POST /api/media` - Upload media (requires auth)
 
 #### WordPress Compatibility
+
 - `GET /wp-json/wp/v2/posts` - WordPress-style posts endpoint
 - `GET /wp-json/wp/v2/categories` - WordPress-style categories
 - `GET /wp-json/wp/v2/comments` - WordPress-style comments
@@ -255,11 +265,13 @@ curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
 ### 📝 API Usage Examples
 
 #### Get All Posts
+
 ```bash
 curl http://localhost:3001/api/posts
 ```
 
 #### Create New Post (requires auth)
+
 ```bash
 curl -X POST http://localhost:3001/api/posts \
   -H "Content-Type: application/json" \
@@ -274,6 +286,7 @@ curl -X POST http://localhost:3001/api/posts \
 ```
 
 #### Search & Filtering
+
 ```bash
 # Search posts
 curl "http://localhost:3001/api/posts?q=Vue"
@@ -377,19 +390,21 @@ curl "http://localhost:3001/api/posts?_page=1&_limit=5"
 5. **Export feature** (`src/features/my-feature/index.ts`):
 
    ```typescript
-   export * from './stores/my-feature.store'
    export * from './services/my-feature.service'
+   export * from './stores/my-feature.store'
    export * from './types'
    ```
 
 ### Adding Components
 
 1. **Create component directory**:
+
    ```bash
    mkdir -p src/shared/components/my-component
    ```
 
 2. **Component structure**:
+
    ```
    my-component/
    ├── MyComponent.vue
@@ -426,12 +441,14 @@ const newPost = await api('/posts', {
 ### Layout Components
 
 #### Default Layout (`src/shared/components/layouts/default-layout.vue`)
+
 - Used for public pages (home, about, login)
 - Includes header with navigation and footer
 - Responsive design with mobile navigation
 - Authentication-aware menu items
 
 #### Dashboard Layout (`src/shared/components/layouts/dashboard-layout.vue`)
+
 - Used for authenticated dashboard pages
 - Includes dashboard header and sidebar
 - User profile integration
@@ -440,18 +457,21 @@ const newPost = await api('/posts', {
 ### Navigation Components
 
 #### Dashboard Header (`src/shared/components/navigation/dashboard-header.vue`)
+
 - User profile dropdown with avatar
 - Notifications and settings access
 - Mobile menu toggle
 - Logout functionality
 
 #### Dashboard Sidebar (`src/shared/components/navigation/dashboard-sidebar.vue`)
+
 - Navigation menu for dashboard sections
 - User profile with avatar and role badge
 - Logout functionality
 - Mobile-responsive with overlay
 
 #### Default Footer (`src/shared/components/navigation/default-footer.vue`)
+
 - Multi-column layout with organized links
 - Brand information and copyright
 - Responsive design for mobile devices
@@ -477,11 +497,13 @@ import { DefaultLayout } from '@/shared/components/layouts'
 The application includes a comprehensive set of pages organized by functionality:
 
 ### Public Pages (Default Layout)
+
 - **Home (`/`)**: Landing page with feature overview and authentication status
 - **About (`/about`)**: Information about the application and technology stack
 - **Login (`/login`)**: User authentication form
 
 ### Dashboard Pages (Dashboard Layout)
+
 - **Dashboard (`/dashboard`)**: Main dashboard with statistics and feature overview
 - **Analytics (`/dashboard/analytics`)**: Data insights and performance metrics
 - **Profile (`/dashboard/profile`)**: User profile management and settings
@@ -489,6 +511,7 @@ The application includes a comprehensive set of pages organized by functionality
 - **Users (`/dashboard/users`)**: User management interface (admin feature)
 
 ### Route Protection
+
 - **Public pages** (`/`, `/about`, `/login`): Accessible to all users
 - **Dashboard pages** (`/dashboard/*`): Require authentication
 - **Role-based access**: Some dashboard features require specific user roles
@@ -497,6 +520,7 @@ The application includes a comprehensive set of pages organized by functionality
 ## 🔒 Security Features
 
 ### Route Protection
+
 ```typescript
 // Route guard implementation in src/core/router/index.ts
 router.beforeEach(async (to, from, next) => {
@@ -522,6 +546,7 @@ router.beforeEach(async (to, from, next) => {
 ```
 
 ### API Security
+
 - JWT tokens with automatic refresh
 - Request/response interceptors
 - Error handling and token cleanup
@@ -543,6 +568,7 @@ JWT_REFRESH_SECRET=your-super-secret-refresh-key-change-this-in-production
 ```
 
 **⚠️ Important for Production:**
+
 - Generate secure random strings for JWT secrets
 - Use: `openssl rand -base64 32` to generate secure keys
 - Never use the example keys in production!
@@ -596,17 +622,20 @@ bun run lint:fix
 ### Production Checklist
 
 1. **Environment Setup**:
+
    - Replace JWT secrets with secure values
    - Update API base URL for production
    - Configure CORS for your domain
 
 2. **Security**:
+
    - Implement real password hashing
    - Add rate limiting
    - Use HTTPS in production
    - Add input validation and sanitization
 
 3. **Database**:
+
    - Replace JSON files with real database
    - Implement proper data persistence
    - Add database migrations
@@ -627,6 +656,7 @@ bun run lint:fix
 ## 📚 Tech Stack
 
 ### Frontend
+
 - **Vue 3** - Progressive JavaScript framework
 - **TypeScript** - Type safety and better DX
 - **Vite** - Fast build tool and dev server
@@ -637,6 +667,7 @@ bun run lint:fix
 - **Zod** - Schema validation
 
 ### Development Tools
+
 - **Bun** - Fast package manager and runtime
 - **ESLint** - Code linting and formatting
 - **Prettier** - Code formatting
@@ -645,6 +676,7 @@ bun run lint:fix
 - **Vitest** - Unit testing
 
 ### Mock API
+
 - **JSON Server** - Mock REST API
 - **JWT** - Authentication tokens
 - **CORS** - Cross-origin requests

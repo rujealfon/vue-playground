@@ -6,8 +6,8 @@ meta:
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 
-import { useAuthStore } from '@/features/auth'
-import { Button } from '@/shared/components/ui/button'
+import { useAuthStore } from '@/features/auth/stores/auth.store'
+import Button from '@/shared/components/ui/button/Button.vue'
 
 const authStore = useAuthStore()
 </script>

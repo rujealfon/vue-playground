@@ -1,0 +1,119 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Project Guidelines for Vue Playground
+
+## Import Rules
+- **Direct imports only:** Always import directly from the source file using the `@/` alias (never `./` or `../`).
+- **No barrel files:** Never use `index.ts` files for re-exporting modules.
+- **Be explicit:** Always specify the exact file you are importing from.
+- **Exception:** The `@/shared/components/ui` folder is allowed to use barrel files, but must still use the `@/` alias.
+- **Node modules and package imports** (e.g., `import { ref } from 'vue'`) are not affected by these rules.
+
+### Rationale
+- Enforces a consistent and clear import style across the codebase
+- Prevents import path errors when moving files
+- Improves code navigation and refactoring
+- Makes it easier to search for and manage dependencies
+
+### Implementation
+- Enforced by ESLint using the `no-restricted-imports` rule in [eslint.config.mjs](mdc:eslint.config.mjs)
+- Any import path starting with `./` or `../` will trigger a lint error:
+  - _"Relative imports are not allowed. Use the @/ alias for all project imports."_
+- Any import from a barrel file (index.ts) will trigger a lint error:
+  - _"Barrel files (index imports) are not allowed. Import directly from the source file."_
+
+### Examples
+#### ✅ Good Import Examples
+```typescript
+import LoginForm from '@/features/auth/components/login-form.vue'
+import { useAuthStore } from '@/features/auth/stores/auth.store'
+import type { User } from '@/shared/types/user'
+import { cn } from '@/shared/utils/utils'
+```
+#### ❌ Bad Import Examples
+```typescript
+import { LoginForm } from '@/features/auth' // Barrel file import (not allowed)
+import { User } from '@/shared/types' // Barrel file import (not allowed)
+import { cn } from '@/shared/utils' // Barrel file import (not allowed)
+import { useAuthStore } from '../stores/auth.store' // Relative import (not allowed)
+```
+
+## File Organization
+- Each file should have a single, clear responsibility.
+- Use **kebab-case** for file names.
+- Use **PascalCase** for Vue component names.
+- Use **camelCase** for functions and variables.
+
+## Vue 3 Composition API
+- Use `<script setup lang="ts">` syntax for all Vue components.
+- Prefer composables over mixins.
+- Use TypeScript for all new code.
+
+## TypeScript
+- Use `type` instead of `interface` for object shapes.
+- Export types and interfaces explicitly.
+- Avoid the `any` type; use proper typing.
+
+## Code Style
+- Use ESLint and Prettier configurations.
+- Follow the existing code patterns.
+- Add JSDoc comments for complex functions.
+
+## Architecture
+- Follow a feature-based folder structure.
+- Keep components small and focused.
+- Use Pinia for state management.
+- Use Vue Router for navigation.
+
+## Error Handling
+- Use try/catch for async operations.
+- Show user-friendly error messages.
+- Log errors for debugging.
+
+## Performance
+- Use lazy loading for routes.
+- Minimize bundle size.
+- Optimize images and assets.
+
+## Testing
+- Write unit tests for utilities.
+- Write component tests for complex components.
+- Use meaningful test descriptions.
+
+## File Structure Example
+```
+src/
+├── features/
+│   ├── auth/
+│   │   ├── components/
+│   │   │   └── login-form.vue
+│   │   ├── stores/
+│   │   │   └── auth.store.ts
+│   │   ├── types/
+│   │   │   └── auth.type.ts
+│   │   └── services/
+│   │       └── auth.service.ts
+│   └── dashboard/
+├── shared/
+│   ├── components/
+│   │   ├── ui/
+│   │   └── layouts/
+│   │       ├── default-layout.vue
+│   │       └── dashboard-layout.vue
+│   ├── types/
+│   │   ├── user.ts
+│   │   ├── api.ts
+│   │   └── ui.ts
+│   ├── utils/
+│   │   └── utils.ts
+│   └── constants/
+│       ├── messages.ts
+│       ├── routes.ts
+│       └── api.ts
+```
+
+## See Also
+- [eslint.config.mjs](mdc:eslint.config.mjs) for the exact ESLint rule configuration

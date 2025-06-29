@@ -1,4 +1,11 @@
-import type { AuthTokens, LoginCredentials, RegisterData, User } from '@/shared/types'
+import type { AuthTokens, LoginCredentials, RegisterData, User } from '@/shared/types/user'
+
+// User roles enum
+export enum UserRole {
+  ADMIN = 'admin',
+  USER = 'user',
+  MODERATOR = 'moderator',
+}
 
 // Auth state types
 export type AuthState = {

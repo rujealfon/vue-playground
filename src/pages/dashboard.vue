@@ -4,7 +4,7 @@ meta:
 </route>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/features/auth'
+import { useAuthStore } from '@/features/auth/stores/auth.store'
 import { useCounterStore } from '@/features/dashboard/stores/counter'
 
 const counterStore = useCounterStore()

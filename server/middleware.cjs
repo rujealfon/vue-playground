@@ -19,7 +19,7 @@ const mockUsers = [
     role: 'admin',
     avatar: 'https://picsum.photos/150/150?random=1',
     isActive: true,
-    isVerified: true
+    isVerified: true,
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const mockUsers = [
     role: 'editor',
     avatar: 'https://picsum.photos/150/150?random=2',
     isActive: true,
-    isVerified: true
+    isVerified: true,
   },
   {
     id: 3,
@@ -41,8 +41,8 @@ const mockUsers = [
     role: 'author',
     avatar: 'https://picsum.photos/150/150?random=3',
     isActive: true,
-    isVerified: false
-  }
+    isVerified: false,
+  },
 ]
 
 // Helper functions
@@ -52,10 +52,10 @@ function generateAccessToken(user) {
       id: user.id,
       email: user.email,
       role: user.role,
-      username: user.username
+      username: user.username,
     },
     JWT_SECRET,
-    { expiresIn: '15m' }
+    { expiresIn: '15m' },
   )
 }
 
@@ -63,7 +63,7 @@ function generateRefreshToken(user) {
   return jwt.sign(
     { id: user.id, email: user.email },
     JWT_REFRESH_SECRET,
-    { expiresIn: '7d' }
+    { expiresIn: '7d' },
   )
 }
 
@@ -74,7 +74,8 @@ function verifyToken(token, secret = JWT_SECRET) {
       return null
     }
     return jwt.verify(token, secret)
-  } catch {
+  }
+  catch {
     return null
   }
 }
@@ -105,7 +106,7 @@ module.exports = (req, res, next) => {
     if (!email || !password) {
       return res.status(400).json({
         error: 'Email and password are required',
-        code: 'MISSING_CREDENTIALS'
+        code: 'MISSING_CREDENTIALS',
       })
     }
 
@@ -113,7 +114,7 @@ module.exports = (req, res, next) => {
     if (!user) {
       return res.status(401).json({
         error: 'Invalid credentials',
-        code: 'INVALID_CREDENTIALS'
+        code: 'INVALID_CREDENTIALS',
       })
     }
 
@@ -124,14 +125,14 @@ module.exports = (req, res, next) => {
     if (!isValidPassword) {
       return res.status(401).json({
         error: 'Invalid credentials',
-        code: 'INVALID_CREDENTIALS'
+        code: 'INVALID_CREDENTIALS',
       })
     }
 
     if (!user.isActive) {
       return res.status(403).json({
         error: 'Account is deactivated',
-        code: 'ACCOUNT_DEACTIVATED'
+        code: 'ACCOUNT_DEACTIVATED',
       })
     }
 
@@ -145,13 +146,13 @@ module.exports = (req, res, next) => {
       user: {
         ...userWithoutPassword,
         createdAt: '2023-06-15T09:00:00Z',
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
       },
       tokens: {
         accessToken,
-        refreshToken
+        refreshToken,
       },
-      message: 'Login successful'
+      message: 'Login successful',
     })
   }
 
@@ -162,7 +163,7 @@ module.exports = (req, res, next) => {
     if (!name || !email || !password || !username) {
       return res.status(400).json({
         error: 'Name, email, password, and username are required',
-        code: 'MISSING_FIELDS'
+        code: 'MISSING_FIELDS',
       })
     }
 
@@ -170,7 +171,7 @@ module.exports = (req, res, next) => {
     if (findUserByEmail(email)) {
       return res.status(409).json({
         error: 'User with this email already exists',
-        code: 'USER_EXISTS'
+        code: 'USER_EXISTS',
       })
     }
 
@@ -184,7 +185,7 @@ module.exports = (req, res, next) => {
       role: 'subscriber',
       avatar: `https://picsum.photos/150/150?random=${mockUsers.length + 1}`,
       isActive: true,
-      isVerified: false
+      isVerified: false,
     }
 
     mockUsers.push(newUser)
@@ -199,13 +200,13 @@ module.exports = (req, res, next) => {
       user: {
         ...userWithoutPassword,
         createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
       },
       tokens: {
         accessToken,
-        refreshToken
+        refreshToken,
       },
-      message: 'Registration successful'
+      message: 'Registration successful',
     })
   }
 
@@ -216,7 +217,7 @@ module.exports = (req, res, next) => {
     if (!refreshToken) {
       return res.status(400).json({
         error: 'Refresh token is required',
-        code: 'MISSING_REFRESH_TOKEN'
+        code: 'MISSING_REFRESH_TOKEN',
       })
     }
 
@@ -224,7 +225,7 @@ module.exports = (req, res, next) => {
     if (!decoded) {
       return res.status(401).json({
         error: 'Invalid refresh token',
-        code: 'INVALID_REFRESH_TOKEN'
+        code: 'INVALID_REFRESH_TOKEN',
       })
     }
 
@@ -232,14 +233,14 @@ module.exports = (req, res, next) => {
     if (!user || !user.isActive) {
       return res.status(401).json({
         error: 'User not found or inactive',
-        code: 'USER_NOT_FOUND'
+        code: 'USER_NOT_FOUND',
       })
     }
 
     const newAccessToken = generateAccessToken(user)
 
     return res.json({
-      accessToken: newAccessToken
+      accessToken: newAccessToken,
     })
   }
 
@@ -249,7 +250,7 @@ module.exports = (req, res, next) => {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({
         error: 'Authorization token required',
-        code: 'MISSING_TOKEN'
+        code: 'MISSING_TOKEN',
       })
     }
 
@@ -259,7 +260,7 @@ module.exports = (req, res, next) => {
     if (!decoded) {
       return res.status(401).json({
         error: 'Invalid or expired token',
-        code: 'INVALID_TOKEN'
+        code: 'INVALID_TOKEN',
       })
     }
 
@@ -267,7 +268,7 @@ module.exports = (req, res, next) => {
     if (!user) {
       return res.status(404).json({
         error: 'User not found',
-        code: 'USER_NOT_FOUND'
+        code: 'USER_NOT_FOUND',
       })
     }
 
@@ -277,7 +278,7 @@ module.exports = (req, res, next) => {
     return res.json({
       ...userWithoutPassword,
       createdAt: '2023-06-15T09:00:00Z',
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     })
   }
 
@@ -287,7 +288,7 @@ module.exports = (req, res, next) => {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({
         error: 'Authorization token required',
-        code: 'MISSING_TOKEN'
+        code: 'MISSING_TOKEN',
       })
     }
 
@@ -297,7 +298,7 @@ module.exports = (req, res, next) => {
     if (!decoded) {
       return res.status(401).json({
         error: 'Invalid or expired token',
-        code: 'INVALID_TOKEN'
+        code: 'INVALID_TOKEN',
       })
     }
 
@@ -305,27 +306,34 @@ module.exports = (req, res, next) => {
     if (!user) {
       return res.status(404).json({
         error: 'User not found',
-        code: 'USER_NOT_FOUND'
+        code: 'USER_NOT_FOUND',
       })
     }
 
     // Update user data
     const { name, bio, website, location, twitter, github, linkedin } = req.body
 
-    if (name) user.name = name
-    if (bio !== undefined) user.bio = bio
-    if (website !== undefined) user.website = website
-    if (location !== undefined) user.location = location
-    if (twitter !== undefined) user.twitter = twitter
-    if (github !== undefined) user.github = github
-    if (linkedin !== undefined) user.linkedin = linkedin
+    if (name)
+      user.name = name
+    if (bio !== undefined)
+      user.bio = bio
+    if (website !== undefined)
+      user.website = website
+    if (location !== undefined)
+      user.location = location
+    if (twitter !== undefined)
+      user.twitter = twitter
+    if (github !== undefined)
+      user.github = github
+    if (linkedin !== undefined)
+      user.linkedin = linkedin
 
     // Remove password from response
     const { password: _, ...userWithoutPassword } = user
 
     return res.json({
       ...userWithoutPassword,
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     })
   }
 
@@ -347,14 +355,14 @@ module.exports = (req, res, next) => {
     if (!email) {
       return res.status(400).json({
         error: 'Email is required',
-        code: 'MISSING_EMAIL'
+        code: 'MISSING_EMAIL',
       })
     }
 
     const _user = findUserByEmail(email)
     // Always return success for security (don't reveal if email exists)
     return res.json({
-      message: 'If the email exists, a password reset link has been sent'
+      message: 'If the email exists, a password reset link has been sent',
     })
   }
 
@@ -365,20 +373,20 @@ module.exports = (req, res, next) => {
     if (!token || !password) {
       return res.status(400).json({
         error: 'Token and password are required',
-        code: 'MISSING_FIELDS'
+        code: 'MISSING_FIELDS',
       })
     }
 
     // In a real app, verify the reset token
     return res.json({
-      message: 'Password has been reset successfully'
+      message: 'Password has been reset successfully',
     })
   }
 
   // Protected routes middleware
   const protectedRoutes = ['/posts', '/categories', '/tags', '/users', '/comments', '/media', '/pages']
   const isProtectedWrite = protectedRoutes.some(route =>
-    req.path.startsWith(route) && ['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)
+    req.path.startsWith(route) && ['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method),
   )
 
   if (isProtectedWrite) {
@@ -386,7 +394,7 @@ module.exports = (req, res, next) => {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({
         error: 'Authorization token required for this operation',
-        code: 'MISSING_TOKEN'
+        code: 'MISSING_TOKEN',
       })
     }
 
@@ -396,7 +404,7 @@ module.exports = (req, res, next) => {
     if (!decoded) {
       return res.status(401).json({
         error: 'Invalid or expired token',
-        code: 'INVALID_TOKEN'
+        code: 'INVALID_TOKEN',
       })
     }
 

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { api, apiUtils, useApi } from './api'
+import { api, apiUtils, useApi } from '@/shared/services/api'
 
 // Example Zod schemas for type safety
 const UserSchema = z.object({
