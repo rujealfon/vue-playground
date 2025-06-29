@@ -14,7 +14,9 @@
     "build-only": "bunx --bun vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "mock-api": "json-server --watch server/db.json --port 3001 --routes server/routes.json --middlewares server/middleware.cjs",
+    "dev:full": "run-p dev mock-api"
   },
   "dependencies": {
     "@antfu/eslint-config": "^4.14.1",
@@ -44,6 +46,7 @@
     "@vue/language-plugin-pug": "^2.2.10",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
+    "bcryptjs": "^3.0.2",
     "cypress": "^14.4.1",
     "eslint": "^9.29.0",
     "eslint-plugin-better-tailwindcss": "^3.2.1",
@@ -55,6 +58,8 @@
     "husky": "^9.1.7",
     "jiti": "^2.4.2",
     "jsdom": "^26.1.0",
+    "json-server": "0.17.4",
+    "jsonwebtoken": "^9.0.2",
     "lint-staged": "^16.1.2",
     "npm-run-all2": "^8.0.4",
     "oxlint": "^1.1.0",
