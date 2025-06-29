@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DefaultFooter from '../navigation/default-footer.vue'
-import DefaultHeader from '../navigation/default-header.vue'
+import DefaultFooter from '@/shared/components/navigation/default-footer.vue'
+import DefaultHeader from '@/shared/components/navigation/default-header.vue'
 
 type Props = {
   title?: string

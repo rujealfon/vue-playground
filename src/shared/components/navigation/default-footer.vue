@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { APP_CONFIG } from '@/shared/constants'
+import { APP_CONFIG } from '@/shared/constants/app'
 
 const currentYear = new Date().getFullYear()
 

@@ -1,10 +1,5 @@
 import { z } from 'zod'
 
-import type { User } from '@/shared/types'
-
-import { API_ENDPOINTS, STORAGE_KEYS } from '@/shared/constants'
-import { api } from '@/shared/services/api'
-
 import type {
   AuthError,
   ChangePasswordRequest,
@@ -15,7 +10,11 @@ import type {
   RegisterResponse,
   ResetPasswordRequest,
   UpdateProfileRequest,
-} from '../types'
+} from '@/features/auth/types/auth.type'
+import type { User } from '@/shared/types/user'
+
+import { API_ENDPOINTS, STORAGE_KEYS } from '@/shared/constants/api'
+import { api } from '@/shared/services/api'
 
 // Zod schemas for validation
 const LoginResponseSchema = z.object({

@@ -19,6 +19,7 @@ The server uses [json-server](https://github.com/typicode/json-server) with cust
 Default port: `3001`
 
 To change the port, update the `mock-api` script in `package.json`:
+
 ```json
 {
   "scripts": {
@@ -30,6 +31,7 @@ To change the port, update the `mock-api` script in `package.json`:
 ### Route Mapping (`routes.json`)
 
 Custom route mappings that provide:
+
 - RESTful API endpoints (`/api/*`)
 - WordPress compatibility (`/wp-json/wp/v2/*`)
 - Resource relationships and filtering
@@ -55,6 +57,7 @@ Custom Express middleware that handles:
 - **Token refresh functionality**
 
 #### Key Features:
+
 - Uses `jsonwebtoken` for JWT handling
 - Access tokens: 15-minute expiry
 - Refresh tokens: 7-day expiry
@@ -62,6 +65,7 @@ Custom Express middleware that handles:
 - Password validation bypassed for demo purposes
 
 #### Environment Variables:
+
 ```env
 JWT_SECRET=your-jwt-secret
 JWT_REFRESH_SECRET=your-refresh-secret
@@ -70,6 +74,7 @@ JWT_REFRESH_SECRET=your-refresh-secret
 ## 🗄️ Database Structure (`db.json`)
 
 ### Collections:
+
 - `posts` - Blog posts with content, metadata, and relationships
 - `categories` - Hierarchical categories with slugs and colors
 - `tags` - Content tags for organization
@@ -78,6 +83,7 @@ JWT_REFRESH_SECRET=your-refresh-secret
 - `media` - Media files and attachments
 
 ### Relationships:
+
 - Posts → Users (authorId)
 - Posts → Categories (categoryId)
 - Posts → Tags (tagIds array)
@@ -90,6 +96,7 @@ JWT_REFRESH_SECRET=your-refresh-secret
 ### Adding New Data
 
 Edit `db.json` directly to add:
+
 ```json
 {
   "posts": [
@@ -110,6 +117,7 @@ Edit `db.json` directly to add:
 ### Modifying Authentication
 
 Update `middleware.cjs` to:
+
 - Change JWT expiry times
 - Modify user roles and permissions
 - Add new authentication endpoints
@@ -118,6 +126,7 @@ Update `middleware.cjs` to:
 ### Adding New Routes
 
 Extend `routes.json` for custom endpoints:
+
 ```json
 {
   "/api/custom-endpoint": "/your-collection",
@@ -140,6 +149,7 @@ json-server --watch server/db.json --port 4000 --routes server/routes.json --mid
 ### Debugging
 
 Enable JSON Server logging:
+
 ```bash
 DEBUG=json-server:* bun run mock-api
 ```
@@ -147,6 +157,7 @@ DEBUG=json-server:* bun run mock-api
 ### Testing Endpoints
 
 Use the curl examples in the main README.md or:
+
 ```bash
 # Test server status
 curl http://localhost:3001/api/posts

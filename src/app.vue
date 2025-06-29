@@ -4,6 +4,7 @@ import { RouterView, useRoute } from 'vue-router'
 
 import DashboardLayout from '@/shared/components/layouts/dashboard-layout.vue'
 import DefaultLayout from '@/shared/components/layouts/default-layout.vue'
+import ToastContainer from '@/shared/components/ui/toast/ToastContainer.vue'
 
 const route = useRoute()
 
@@ -25,6 +26,9 @@ const Layout = computed(() => {
   <component :is="Layout">
     <RouterView />
   </component>
+
+  <!-- Global Toast Container -->
+  <ToastContainer />
 </template>
 
 <style>

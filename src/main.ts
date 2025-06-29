@@ -3,7 +3,7 @@ import { createApp } from 'vue'
 
 import App from '@/app.vue'
 import router from '@/core/router'
-import { useAuthStore } from '@/features/auth'
+import { useAuthStore } from '@/features/auth/stores/auth.store'
 import '@/assets/main.css'
 
 const app = createApp(App)

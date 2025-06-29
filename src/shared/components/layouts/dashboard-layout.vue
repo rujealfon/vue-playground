@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DashboardHeader from '../navigation/dashboard-header.vue'
-import DashboardSidebar from '../navigation/dashboard-sidebar.vue'
+import DashboardHeader from '@/shared/components/navigation/dashboard-header.vue'
+import DashboardSidebar from '@/shared/components/navigation/dashboard-sidebar.vue'
 
 type Props = {
   title?: string

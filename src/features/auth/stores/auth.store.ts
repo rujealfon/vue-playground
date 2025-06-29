@@ -1,15 +1,17 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
-import type { User } from '@/shared/types'
+import type { AuthError, ChangePasswordRequest, LoginForm, RegisterForm, UpdateProfileRequest } from '@/features/auth/types/auth.type'
+import type { User } from '@/shared/types/user'
 
-import { SUCCESS_MESSAGES } from '@/shared/constants'
-
-import type { AuthError, ChangePasswordRequest, LoginForm, RegisterForm, UpdateProfileRequest } from '../types'
-
-import { authService } from '../services/auth.service'
+import { authService } from '@/features/auth/services/auth.service'
+import { useToast } from '@/shared/composables/use-toast'
+import { SUCCESS_MESSAGES } from '@/shared/constants/messages'
 
 export const useAuthStore = defineStore('auth', () => {
+  // Initialize toast
+  const toast = useToast()
+
   // State
   const user = ref<User | null>(null)
   const isLoading = ref(false)
@@ -32,15 +34,17 @@ export const useAuthStore = defineStore('auth', () => {
   // Helper to handle errors
   const handleError = (err: AuthError | Error | any) => {
     isLoading.value = false
+    let errorMessage = 'An unexpected error occurred'
+
     if (err instanceof Error) {
-      error.value = err.message
+      errorMessage = err.message
     }
     else if (err.message) {
-      error.value = err.message
+      errorMessage = err.message
     }
-    else {
-      error.value = 'An unexpected error occurred'
-    }
+
+    error.value = errorMessage
+    toast.error('Authentication Error', errorMessage)
     console.error('Auth error:', err)
   }
 
@@ -51,7 +55,8 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await authService.login(credentials)
       user.value = response.user
       error.value = null
-      return { success: true, message: SUCCESS_MESSAGES.LOGIN_SUCCESS }
+      toast.success('Welcome back!', SUCCESS_MESSAGES.LOGIN)
+      return { success: true, message: SUCCESS_MESSAGES.LOGIN }
     }
     catch (err) {
       handleError(err)
@@ -68,7 +73,7 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await authService.register(userData)
       user.value = response.user
       error.value = null
-      return { success: true, message: response.message || SUCCESS_MESSAGES.REGISTER_SUCCESS }
+      return { success: true, message: response.message || SUCCESS_MESSAGES.REGISTER }
     }
     catch (err) {
       handleError(err)
@@ -85,7 +90,7 @@ export const useAuthStore = defineStore('auth', () => {
       await authService.logout()
       user.value = null
       error.value = null
-      return { success: true, message: SUCCESS_MESSAGES.LOGOUT_SUCCESS }
+      return { success: true, message: SUCCESS_MESSAGES.LOGOUT }
     }
     catch (err) {
       handleError(err)
@@ -126,7 +131,7 @@ export const useAuthStore = defineStore('auth', () => {
       const updatedUser = await authService.updateProfile(data)
       user.value = updatedUser
       error.value = null
-      return { success: true, message: SUCCESS_MESSAGES.UPDATE_SUCCESS }
+      return { success: true, message: SUCCESS_MESSAGES.PROFILE_UPDATED }
     }
     catch (err) {
       handleError(err)

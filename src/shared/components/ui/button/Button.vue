@@ -3,9 +3,9 @@ import type { HTMLAttributes } from 'vue'
 
 import { Primitive, type PrimitiveProps } from 'reka-ui'
 
-import { cn } from '@/shared/utils'
+import { cn } from '@/shared/utils/utils'
 
-import { type ButtonVariants, buttonVariants } from '.'
+import { type ButtonVariants, buttonVariants } from './index'
 
 type Props = PrimitiveProps & {
   variant?: ButtonVariants['variant']
