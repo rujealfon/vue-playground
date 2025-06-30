@@ -6,7 +6,9 @@ import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss'
 export default antfu(
   {
     type: 'app',
-    vue: true,
+    vue: {
+      a11y: true
+    },
     typescript: true,
     formatters: true,
     // Disable UnoCSS since we're using Tailwind CSS
@@ -15,8 +17,8 @@ export default antfu(
       // Ignore UI components from all linting and formatting
       'src/components/ui/**/*',
       // Ignore generated router types to prevent Unicode character conflicts
-      'typed-router.d.ts',
-    ],
+      'typed-router.d.ts'
+    ]
   },
   {
     // Global rules
@@ -28,30 +30,31 @@ export default antfu(
       'node/prefer-global/process': ['off'],
       'node/no-process-env': ['error'],
       'perfectionist/sort-imports': ['error', {
-        tsconfigRootDir: '.',
+        tsconfigRootDir: '.'
       }],
       'unicorn/filename-case': ['error', {
         case: 'kebabCase',
-        ignore: [/\.md$/],
+        ignore: [/\.md$/]
       }],
-    },
+      'style/comma-dangle': ['error', 'never']
+    }
   },
   // MUST be after global rules to override
   {
     // Better Tailwind CSS plugin
     plugins: {
-      'better-tailwindcss': eslintPluginBetterTailwindcss,
+      'better-tailwindcss': eslintPluginBetterTailwindcss
     },
     rules: {
       // Better Tailwind CSS rules
       ...eslintPluginBetterTailwindcss.configs['recommended-error'].rules,
-      'better-tailwindcss/no-unregistered-classes': 'off',
+      'better-tailwindcss/no-unregistered-classes': 'off'
     },
     settings: {
       'better-tailwindcss': {
-        entryPoint: 'src/assets/main.css',
-      },
-    },
-  },
+        entryPoint: 'src/assets/main.css'
+      }
+    }
+  }
   // eslintPluginOxlint.configs['flat/recommended'],
 )

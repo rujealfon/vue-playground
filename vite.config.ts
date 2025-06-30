@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [VueRouter(), vue(), tailwindcss(), vueDevTools()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  }
 })
