@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'vue'
 
 import { Primitive, type PrimitiveProps } from 'reka-ui'
 
-import { cn } from '@/shared/utils/utils'
+import { cn } from '@/shared/utils/tailwind'
 
 import { type ButtonVariants, buttonVariants } from './index'
 
