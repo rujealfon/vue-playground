@@ -1,0 +1,205 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Cursor AI Rules for Vue Playground
+
+## Project Guidelines
+
+### 🚫 NO BARREL FILES
+- **NEVER** create or use index.ts files for re-exporting modules (barrel files)
+- **ALWAYS** import directly from the source file
+- **EXCEPTION**: The @/shared/components/ui folder is ignored from this rule
+
+### Import Rules
+- Use direct imports: `import Component from '@/features/auth/components/login-form.vue'`
+- NOT: `import { Component } from '@/features/auth'`
+- Be explicit about what you're importing and from where
+
+### File Organization
+- Each file should have a single, clear responsibility
+- Use kebab-case for file names
+- Use PascalCase for Vue component names
+- Use camelCase for functions and variables
+
+### Vue 3 Composition API
+- Use `<script setup lang="ts">` syntax
+- Prefer composables over mixins
+- Use TypeScript for all new code
+
+### TypeScript
+- Use `type` instead of `interface` for object shapes
+- Export types and interfaces explicitly
+- Avoid `any` type - use proper typing
+
+### Validation
+- Use [Zod](mdc:https:/zod.dev) as the standard library for schema and data validation.
+- Define all input, API, and form validation schemas using Zod.
+- Co-locate Zod schemas with the relevant feature (e.g., in a `schemas/` folder inside the feature directory).
+- Prefer Zod over custom validation logic or other libraries for consistency and type safety.
+
+### Code Style
+- Use ESLint and Prettier configurations
+- Follow the existing code patterns
+- Add JSDoc comments for complex functions
+
+### Architecture
+- Follow feature-based folder structure
+- Keep components small and focused
+- Use Pinia for state management
+- Use Vue Router for navigation
+
+### Error Handling
+- Use try/catch for async operations
+- Show user-friendly error messages
+- Log errors for debugging
+
+### Performance
+- Use lazy loading for routes
+- Minimize bundle size
+- Optimize images and assets
+
+### Testing
+- Write unit tests for utilities
+- Write component tests for complex components
+- Use meaningful test descriptions
+
+## Examples
+
+### ✅ Good Import Examples
+```typescript
+// Direct component import
+import LoginForm from '@/features/auth/components/login-form.vue'
+
+// Direct service import
+import { useAuthStore } from '@/features/auth/stores/auth.store'
+
+// Direct type import
+import type { User } from '@/shared/types/user'
+
+// Direct utility import
+import { cn } from '@/shared/utils/utils'
+```
+
+### ❌ Bad Import Examples
+```typescript
+// Barrel file imports (NEVER DO THIS)
+import { LoginForm } from '@/features/auth'
+import { User } from '@/shared/types'
+import { cn } from '@/shared/utils'
+```
+
+### File Structure Example
+```
+vue-playground/
+├── cypress/
+│   ├── downloads/
+│   ├── e2e/
+│   │   └── example.cy.ts
+│   ├── fixtures/
+│   │   └── example.json
+│   ├── support/
+│   │   ├── commands.ts
+│   │   └── e2e.ts
+│   └── tsconfig.json
+├── server/
+│   ├── api-test.http
+│   ├── db.json
+│   ├── middleware.cjs
+│   ├── README.md
+│   └── routes.json
+├── src/
+│   ├── app.vue
+│   ├── assets/
+│   │   └── main.css
+│   ├── core/
+│   │   └── router/
+│   │       └── index.ts
+│   ├── features/
+│   │   ├── auth/
+│   │   │   ├── components/
+│   │   │   │   └── login-form.vue
+│   │   │   ├── composables/
+│   │   │   ├── schemas/
+│   │   │   │   └── auth.schema.ts
+│   │   │   ├── services/
+│   │   │   │   └── auth.service.ts
+│   │   │   ├── stores/
+│   │   │   │   └── auth.store.ts
+│   │   │   └── types/
+│   │   │       └── auth.type.ts
+│   │   ├── dashboard/
+│   │   │   ├── components/
+│   │   │   ├── composables/
+│   │   │   ├── services/
+│   │   │   ├── stores/
+│   │   │   │   └── counter.ts
+│   │   │   └── types/
+│   │   └── users/
+│   │       ├── components/
+│   │       ├── composables/
+│   │       ├── services/
+│   │       ├── stores/
+│   │       └── types/
+│   ├── main.ts
+│   ├── pages/
+│   │   ├── about.vue
+│   │   ├── dashboard/
+│   │   │   ├── analytics.vue
+│   │   │   ├── profile.vue
+│   │   │   ├── settings.vue
+│   │   │   └── users.vue
+│   │   ├── dashboard.vue
+│   │   ├── index.vue
+│   │   └── login.vue
+│   ├── shared/
+│   │   ├── components/
+│   │   │   ├── layouts/
+│   │   │   │   ├── dashboard-layout.vue
+│   │   │   │   └── default-layout.vue
+│   │   │   ├── navigation/
+│   │   │   │   ├── dashboard-header.vue
+│   │   │   │   ├── dashboard-sidebar.vue
+│   │   │   │   ├── default-footer.vue
+│   │   │   │   └── default-header.vue
+│   │   │   ├── ui/
+│   │   │   │   ├── access-denied.vue
+│   │   │   │   ├── button/
+│   │   │   │   │   ├── Button.vue
+│   │   │   │   │   └── index.ts
+│   │   │   │   ├── index.ts
+│   │   │   │   └── toast/
+│   │   │   │       ├── index.ts
+│   │   │   │       ├── Toast.vue
+│   │   │   │       └── ToastContainer.vue
+│   │   ├── composables/
+│   │   │   └── use-toast.ts
+│   │   ├── constants/
+│   │   │   ├── api.ts
+│   │   │   ├── app.ts
+│   │   │   ├── messages.ts
+│   │   │   └── routes.ts
+│   │   ├── services/
+│   │   │   ├── api-examples.ts
+│   │   │   └── api.ts
+│   │   ├── types/
+│   │   │   ├── api.ts
+│   │   │   ├── ui.ts
+│   │   │   └── user.ts
+│   │   └── utils/
+│   │       └── utils.ts
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── tsconfig.vitest.json
+├── typed-router.d.ts
+├── vite.config.ts
+├── vitest.config.ts
+```
+
+## Remember
+- Be explicit with imports
+- Maintain clear file organization
+- Follow TypeScript best practices
+- Keep the codebase maintainable and readable
