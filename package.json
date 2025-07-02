@@ -22,15 +22,19 @@
   "dependencies": {
     "@antfu/eslint-config": "^4.16.1",
     "@tailwindcss/vite": "^4.1.11",
+    "@vee-validate/zod": "^4.15.1",
+    "@vueuse/core": "^13.4.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "eslint-import-resolver-typescript": "^4.4.4",
     "lucide-vue-next": "^0.514.0",
+    "ofetch": "^1.4.1",
     "pinia": "^3.0.3",
     "reka-ui": "^2.3.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11",
     "tw-animate-css": "^1.3.4",
+    "vee-validate": "^4.15.1",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1",
     "zod": "^3.25.67"
@@ -70,6 +74,6 @@
     "vue-tsc": "^2.2.10"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": "bun run lint"
+    "*.{js,ts,vue}": "bun run lint --no-warn-ignored"
   }
 }
