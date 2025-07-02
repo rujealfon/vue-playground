@@ -15,7 +15,7 @@ export default antfu(
     unocss: false,
     ignores: [
       // Ignore UI components from all linting and formatting
-      'src/components/ui/**/*',
+      'src/shared/components/ui/**/*',
       // Ignore generated router types to prevent Unicode character conflicts
       'typed-router.d.ts',
       // Ignore Markdown files

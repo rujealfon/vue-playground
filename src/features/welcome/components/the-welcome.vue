@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import CommunityIcon from '@/components/icons/icon-community.vue'
-import DocumentationIcon from '@/components/icons/icon-documentation.vue'
-import EcosystemIcon from '@/components/icons/icon-ecosystem.vue'
-import SupportIcon from '@/components/icons/icon-support.vue'
-import ToolingIcon from '@/components/icons/icon-tooling.vue'
-import WelcomeItem from '@/components/welcome-item.vue'
+import CommunityIcon from '@/shared/components/icons/icon-community.vue'
+import DocumentationIcon from '@/shared/components/icons/icon-documentation.vue'
+import EcosystemIcon from '@/shared/components/icons/icon-ecosystem.vue'
+import SupportIcon from '@/shared/components/icons/icon-support.vue'
+import ToolingIcon from '@/shared/components/icons/icon-tooling.vue'
+
+import WelcomeItem from './welcome-item.vue'
 
 const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 </script>
@@ -18,7 +19,7 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
       Documentation
     </template>
 
-    Vue’s
+    Vue's
     <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
     provides you with all information you need to get started.
   </WelcomeItem>
