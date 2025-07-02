@@ -70,6 +70,6 @@
     "vue-tsc": "^2.2.10"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": "bun run lint"
+    "*.{js,ts,vue}": "bun run lint --no-warn-ignored"
   }
 }
