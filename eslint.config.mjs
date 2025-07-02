@@ -17,7 +17,9 @@ export default antfu(
       // Ignore UI components from all linting and formatting
       'src/components/ui/**/*',
       // Ignore generated router types to prevent Unicode character conflicts
-      'typed-router.d.ts'
+      'typed-router.d.ts',
+      // Ignore Markdown files
+      '**/*.md'
     ]
   },
   {
@@ -33,8 +35,7 @@ export default antfu(
         tsconfigRootDir: '.'
       }],
       'unicorn/filename-case': ['error', {
-        case: 'kebabCase',
-        ignore: [/\.md$/]
+        case: 'kebabCase'
       }],
       'style/comma-dangle': ['error', 'never']
     }
