@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:feature-sliced.design)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(bun run:*)",
+      "Bash(bun lint:*)"
+    ],
+    "deny": []
+  }
+}

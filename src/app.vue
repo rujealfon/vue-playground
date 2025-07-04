@@ -1,23 +1,28 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 
-import HelloWorld from '@/components/hello-world.vue'
+import logoSvg from '@/shared/assets/logo.svg'
+import { SiteHeader } from '@/shared/ui'
+import { AuthNav } from '@/widgets/auth-widget'
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="d-flex green yellow justify-center" src="@/assets/logo.svg" width="125" height="125">
+    <img :src="logoSvg" alt="Vue logo" class="logo" width="125" height="125">
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <SiteHeader msg="You did it!" />
 
-      <nav>
-        <RouterLink to="/">
-          Home
-        </RouterLink>
-        <RouterLink to="/about">
-          About
-        </RouterLink>
+      <nav class="flex w-full items-center justify-between">
+        <div class="flex space-x-4">
+          <RouterLink to="/" class="text-sm font-medium">
+            Home
+          </RouterLink>
+          <RouterLink to="/about" class="text-sm font-medium">
+            About
+          </RouterLink>
+        </div>
+        <AuthNav />
       </nav>
     </div>
   </header>
