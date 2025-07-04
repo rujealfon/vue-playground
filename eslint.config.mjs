@@ -16,6 +16,7 @@ export default antfu(
     ignores: [
       // Ignore UI components from all linting and formatting
       'src/components/ui/**/*',
+      'src/shared/ui/**/*',
       // Ignore generated router types to prevent Unicode character conflicts
       'typed-router.d.ts',
       // Ignore Markdown files
@@ -53,7 +54,7 @@ export default antfu(
     },
     settings: {
       'better-tailwindcss': {
-        entryPoint: 'src/assets/main.css'
+        entryPoint: 'src/app/styles/main.css'
       }
     }
   }
