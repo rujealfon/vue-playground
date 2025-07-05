@@ -1,25 +1,26 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-// eslint-disable-next-line unused-imports/no-unused-imports
 import { RouterView, useRoute } from 'vue-router'
 
-import DefaultLayout from '@/components/layouts/default-layout.vue'
+import AuthLayout from '@/widgets/auth-layout.vue'
+import DashboardLayout from '@/widgets/dashboard-layout.vue'
+import DefaultLayout from '@/widgets/default-layout.vue'
 
-// const route = useRoute()
+const route = useRoute()
 
 // Dynamic layout selection based on route meta
 const Layout = computed(() => {
-  // const layoutName = route.meta.layout || 'default'
+  const layoutName = route.meta.layout || 'default'
 
-  // switch (layoutName) {
-  //   case 'dashboard':
-  //     return DashboardLayout
-  //   case 'default':
-  //   default:
-  //     return DefaultLayout
-  // }
-
-  return DefaultLayout
+  switch (layoutName) {
+    case 'auth':
+      return AuthLayout
+    case 'dashboard':
+      return DashboardLayout
+    case 'default':
+    default:
+      return DefaultLayout
+  }
 })
 </script>
 
