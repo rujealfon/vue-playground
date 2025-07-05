@@ -1,3 +1,8 @@
+<route lang="yaml">
+meta:
+  layout: default
+</route>
+
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
 </script>
