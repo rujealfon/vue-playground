@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "bunx --bun vite",
     "build": "run-p type-check \"build-only {@}\" --",
+    "build:analyze": "bunx --bun vite build --mode analyze",
     "preview": "bunx --bun vite preview",
     "test:unit": "vitest",
     "prepare": "husky",
@@ -64,13 +65,15 @@
     "lint-staged": "^16.1.2",
     "npm-run-all2": "^8.0.4",
     "oxlint": "^1.5.0",
+    "rollup-plugin-visualizer": "^6.0.3",
     "start-server-and-test": "^2.0.12",
     "typescript": "~5.8.3",
     "unplugin-vue-router": "^0.12.0",
     "vite": "npm:rolldown-vite@latest",
     "vite-plugin-vue-devtools": "^7.7.7",
     "vitest": "^3.2.4",
-    "vue-tsc": "^2.2.12"
+    "vue-tsc": "^2.2.12",
+    "webpack-bundle-analyzer": "^4.10.2"
   },
   "lint-staged": {
     "*.{js,ts,vue}": "bun run lint --no-warn-ignored"

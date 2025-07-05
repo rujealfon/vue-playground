@@ -15,18 +15,4 @@ export type ApiResponse<T = any> = {
   success: boolean
 }
 
-export type PaginationParams = {
-  page: number
-  limit: number
-  sort?: string
-  order?: 'asc' | 'desc'
-}
-
-export type PaginatedResponse<T> = {
-  meta: {
-    page: number
-    limit: number
-    total: number
-    totalPages: number
-  }
-} & ApiResponse<T[]>
+// Pagination types removed - unused
