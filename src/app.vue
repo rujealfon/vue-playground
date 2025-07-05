@@ -1,28 +1,32 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { computed } from 'vue'
+// eslint-disable-next-line unused-imports/no-unused-imports
+import { RouterView, useRoute } from 'vue-router'
 
-import HelloWorld from '@/components/hello-world.vue'
+import DefaultLayout from '@/components/layouts/default-layout.vue'
+
+// const route = useRoute()
+
+// Dynamic layout selection based on route meta
+const Layout = computed(() => {
+  // const layoutName = route.meta.layout || 'default'
+
+  // switch (layoutName) {
+  //   case 'dashboard':
+  //     return DashboardLayout
+  //   case 'default':
+  //   default:
+  //     return DefaultLayout
+  // }
+
+  return DefaultLayout
+})
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="d-flex green yellow justify-center" src="@/assets/logo.svg" width="125" height="125">
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">
-          Home
-        </RouterLink>
-        <RouterLink to="/about">
-          About
-        </RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <component :is="Layout">
+    <RouterView />
+  </component>
 </template>
 
 <style scoped>
