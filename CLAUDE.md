@@ -45,6 +45,12 @@ bun lint:fix
 bun run type-check
 ```
 
+### Bundle Analysis
+```bash
+# Build with bundle analyzer (opens dist/stats.html automatically)
+bun run build:analyze
+```
+
 ### Utilities
 ```bash
 # Clean build artifacts
@@ -242,3 +248,10 @@ import { useApi, useTheme } from '@/shared/composables'
 import type { User, ApiResponse } from '@/shared/types'
 </script>
 ```
+
+## Code Guidelines
+
+### Barrel Files
+- Always check for barrel files when importing modules or components
+- Use barrel exports (`index.ts`) to simplify and consolidate imports
+- Barrel files help organize and expose the public API of a module or feature

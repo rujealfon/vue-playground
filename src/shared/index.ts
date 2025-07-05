@@ -1,7 +1,7 @@
 // Shared layer barrel export
-export * from './api'
-export * from './composables'
-export * from './config'
-export * from './lib'
-export * from './types'
-export * from './ui'
+export { ApiClient } from './api'
+// Composables removed - unused
+export { APP_CONFIG } from './config'
+export { cn } from './lib'
+export type { ApiResponse, Theme, User } from './types'
+export { Button, buttonVariants, type ButtonVariants } from './ui'

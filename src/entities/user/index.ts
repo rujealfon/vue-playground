@@ -1,11 +1,5 @@
 export {
-  createUserSearchMatcher,
-  filterActiveUsers,
-  formatUserDisplayName,
-  getUserInitials,
-  isUserActive,
-  sortUsersByName
+  formatUserDisplayName
 } from './lib'
-// User entity public API
-export { useUserEntityStore } from './model'
+// User entity public API - store removed (unused)
 export { UserCard } from './ui'

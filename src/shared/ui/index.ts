@@ -1,2 +1,2 @@
 // Re-export all UI components
-export * from './button'
+export { Button, buttonVariants, type ButtonVariants } from './button'
