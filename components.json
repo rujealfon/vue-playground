@@ -14,7 +14,13 @@
     "composables": "@/composables",
     "utils": "@/lib/utils",
     "ui": "@/components/ui",
-    "lib": "@/lib"
+    "lib": "@/lib",
+    "atoms": "@/components/atomic/atoms",
+    "molecules": "@/components/atomic/molecules",
+    "organisms": "@/components/atomic/organisms",
+    "stores": "@/stores",
+    "api": "@/api",
+    "schemas": "@/schemas"
   },
   "iconLibrary": "lucide"
 }
