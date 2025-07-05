@@ -3,20 +3,32 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { computed, ref } from 'vue'
 
-import { useAuthStore } from '@/features/auth'
+import type { User } from '@/shared/types'
+
+import { generateAvatarPlaceholder } from '@/shared/lib/avatar'
 import { Button } from '@/shared/ui'
 
-import { generateAvatarPlaceholder, updateProfileSchema } from '../lib'
+import { updateProfileSchema } from '../lib'
 import { useUserProfileStore } from '../model'
 
-const authStore = useAuthStore()
+type Props = {
+  user: User | null
+}
+
+type Emits = {
+  profileUpdated: [user: User]
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
+
 const userProfileStore = useUserProfileStore()
 
 const { handleSubmit, defineField, errors, resetForm } = useForm({
   validationSchema: toTypedSchema(updateProfileSchema),
   initialValues: {
-    name: authStore.user?.name || '',
-    email: authStore.user?.email || ''
+    name: props.user?.name || '',
+    email: props.user?.email || ''
   }
 })
 
@@ -29,10 +41,10 @@ const avatarFile = ref<File | null>(null)
 const currentAvatar = computed(() => {
   if (avatarPreview.value)
     return avatarPreview.value
-  if (authStore.user?.avatar)
-    return authStore.user.avatar
-  if (authStore.user?.name)
-    return generateAvatarPlaceholder(authStore.user.name)
+  if (props.user?.avatar)
+    return props.user.avatar
+  if (props.user?.name)
+    return generateAvatarPlaceholder(props.user.name)
   return null
 })
 
@@ -51,7 +63,7 @@ function handleAvatarChange(event: Event) {
 }
 
 const onSubmit = handleSubmit(async (values) => {
-  let avatarUrl = authStore.user?.avatar
+  let avatarUrl = props.user?.avatar
 
   // Upload avatar if changed
   if (avatarFile.value) {
@@ -68,7 +80,7 @@ const onSubmit = handleSubmit(async (values) => {
   })
 
   if (updatedUser) {
-    authStore.user = updatedUser
+    emit('profileUpdated', updatedUser)
     avatarPreview.value = null
     avatarFile.value = null
   }

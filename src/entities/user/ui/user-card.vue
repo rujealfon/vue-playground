@@ -3,7 +3,7 @@ import { computed } from 'vue'
 
 import type { User } from '@/shared/types'
 
-import { generateAvatarPlaceholder } from '@/features/user-profile'
+import { generateAvatarPlaceholder } from '@/shared/lib/avatar'
 
 import { formatUserDisplayName } from '../lib'
 

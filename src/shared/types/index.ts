@@ -14,5 +14,3 @@ export type ApiResponse<T = any> = {
   message: string
   success: boolean
 }
-
-// Pagination types removed - unused
