@@ -7,8 +7,11 @@ meta:
 import type { User } from '@/shared/types'
 
 import { UserCard } from '@/entities/user'
+import { useAuthStore } from '@/features/auth'
 import { CounterDisplay } from '@/features/counter'
 import { ProfileForm } from '@/features/user-profile'
+
+const authStore = useAuthStore()
 
 // Mock user data for demonstration
 const mockUsers: User[] = [
@@ -19,6 +22,11 @@ const mockUsers: User[] = [
 
 function handleUserClick(_user: User) {
   // console.log('User clicked:', user)
+}
+
+function handleProfileUpdated(updatedUser: User) {
+  // Update auth store with new user data
+  authStore.user = updatedUser
 }
 </script>
 
@@ -62,7 +70,10 @@ function handleUserClick(_user: User) {
       <h2 class="mb-4 text-xl font-semibold">
         Profile Settings
       </h2>
-      <ProfileForm />
+      <ProfileForm
+        :user="authStore.user"
+        @profile-updated="handleProfileUpdated"
+      />
     </div>
   </div>
 </template>

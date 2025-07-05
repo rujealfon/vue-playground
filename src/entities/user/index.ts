@@ -1,5 +1,7 @@
+export type { CreateUserData, UpdateUserData, UserStats } from './api'
+export { userEntityApi, UserEntityApi } from './api'
 export {
-  formatUserDisplayName
+  formatUserDisplayName,
+  getUserInitials
 } from './lib'
-// User entity public API - store removed (unused)
 export { UserCard } from './ui'

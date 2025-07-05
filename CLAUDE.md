@@ -255,3 +255,8 @@ import type { User, ApiResponse } from '@/shared/types'
 - Always check for barrel files when importing modules or components
 - Use barrel exports (`index.ts`) to simplify and consolidate imports
 - Barrel files help organize and expose the public API of a module or feature
+
+## FSD Compliance
+- Follow strict Feature-Sliced Design layer dependencies
+- Maintain clear separation of concerns between layers
+- Use public APIs and barrel exports for cross-layer interactions

@@ -11,7 +11,8 @@
       "Bash(find:*)",
       "Bash(rg:*)",
       "Bash(bun add:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "WebFetch(domain:feature-sliced.design)"
     ],
     "deny": []
   }
