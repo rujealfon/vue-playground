@@ -8,7 +8,9 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    VueRouter(),
+    VueRouter({
+      routesFolder: 'src/components/pages'
+    }),
     vue(),
     tailwindcss(),
     vueDevTools({
@@ -17,7 +19,10 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@atoms': fileURLToPath(new URL('./src/components/atomic/atoms', import.meta.url)),
+      '@molecules': fileURLToPath(new URL('./src/components/atomic/molecules', import.meta.url)),
+      '@organisms': fileURLToPath(new URL('./src/components/atomic/organisms', import.meta.url))
     }
   }
 })

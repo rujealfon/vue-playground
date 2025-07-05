@@ -5,7 +5,10 @@
     "baseUrl": ".",
     "moduleResolution": "bundler",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@atoms/*": ["./src/components/atomic/atoms/*"],
+      "@molecules/*": ["./src/components/atomic/molecules/*"],
+      "@organisms/*": ["./src/components/atomic/organisms/*"]
     }
   },
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
